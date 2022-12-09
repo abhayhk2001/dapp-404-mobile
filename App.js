@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// import { Button, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function App() {
+import {
+  ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup
+} from "./src/screens/allScreens";
+
+const NewPostStack = createNativeStackNavigator();
+
+function NewPostStackScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NewPostStack.Navigator>
+      <NewPostStack.Screen name="New Post" component={NewPost} />
+      <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
+    </NewPostStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const DashboardStack = createNativeStackNavigator();
+
+function DashboardStackScreen() {
+  return (
+    <DashboardStack.Navigator>
+      <DashboardStack.Screen name="Home" component={Dashboard} />
+      <DashboardStack.Screen name="Maximised" component={Maximised} />
+    </DashboardStack.Navigator>
+  );
+}
+
+const ProfileStack = createNativeStackNavigator();
+
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen name="Profile" component={Profile} />
+    </ProfileStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="NewPost" component={NewPostStackScreen} />
+        <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
+        <Tab.Screen name="Profile" component={ProfileStackScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
