@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthContext } from "./src/context/AuthContext";
 import { ThemeProvider, createTheme } from '@rneui/themed';
+import { Icon } from "@rneui/base";
+import theme from "./src/static/theme";
+import NavigationBar from "./src/components/NavigationBar";
+
 
 
 import {
@@ -20,8 +24,15 @@ const Tab = createBottomTabNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
     <AuthStack.Screen
-      name="SignIn"
+      name="Login"
       component={Login}
+      options={{
+        title: "Login",
+      }}
+    />
+    <AuthStack.Screen
+      name="Sign In"
+      component={Signup}
       options={{
         title: "Sign In",
         headerStyle: {
@@ -35,7 +46,7 @@ const AuthStackScreen = () => (
 function NewPostStackScreen() {
   return (
     <NewPostStack.Navigator>
-      <NewPostStack.Screen name="New Post" component={NewPost} />
+      <NewPostStack.Screen name="NewPost" component={NewPost} />
       <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
     </NewPostStack.Navigator>
   );
@@ -43,7 +54,9 @@ function NewPostStackScreen() {
 
 function DashboardStackScreen() {
   return (
-    <DashboardStack.Navigator>
+    <DashboardStack.Navigator screenOptions={{
+      header: props => <NavigationBar {...props} />,
+    }}>
       <DashboardStack.Screen name="Home" component={Dashboard} />
       <DashboardStack.Screen name="Maximised" component={Maximised} />
     </DashboardStack.Navigator>
@@ -60,10 +73,46 @@ function ProfileStackScreen() {
 
 function MainTabScreen() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="NewPost" component={NewPostStackScreen} />
-      <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
-      <Tab.Screen name="Profile" component={ProfileStackScreen} />
+    <Tab.Navigator initialRouteName="Dashboard" screenOptions={{
+      tabBarShowLabel: false,
+      headerShown: false,
+      tabBarStyle: {
+        backgroundColor: theme.darkColors.primary,
+        height: 60,
+        marginTop: -25,
+        borderColor: theme.darkColors.primary
+      }
+    }} >
+      <Tab.Screen name="NewPost" component={NewPostStackScreen} options={{
+        tabBarIcon: (() => {
+          return <Icon
+            color={theme.darkColors.secondary}
+            name="add"
+            size={30}
+            type="material"
+          />
+        })
+      }} />
+      <Tab.Screen name="Dashboard" component={DashboardStackScreen} options={{
+        tabBarIcon: (() => {
+          return <Icon
+            color={theme.darkColors.secondary}
+            name="dashboard"
+            size={30}
+            type="material"
+          />
+        })
+      }} />
+      <Tab.Screen name="Profile" component={ProfileStackScreen} options={{
+        tabBarIcon: (() => {
+          return <Icon
+            color={theme.darkColors.secondary}
+            name="person"
+            size={30}
+            type="material"
+          />
+        })
+      }} />
     </Tab.Navigator>
   );
 }
@@ -92,30 +141,14 @@ const RootStackScreen = ({ userToken }) => (
   </RootStack.Navigator>
 );
 
-
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(false);
 
-  const myTheme = createTheme({
-    lightColors: {
-      primary: '#f2f2f2',
-    },
-    darkColors: {
-      primary: '#121212',
-      secondary: '#3658D7',
-      background: '#272547',
-      white: '#D1D3DB',
-      success: '#0ACDA4',
-      error: '#FF6058',
-      warning: '#FE9153'
-    },
-    mode: 'dark',
-  });
 
   const authContext = useMemo(() => {
     return {
-      signIn: (token) => {
+      login: (token) => {
         setIsLoading(false);
         setUserToken(token);
       },
@@ -145,7 +178,7 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <ThemeProvider theme={myTheme}>
+      <ThemeProvider theme={theme}>
         <NavigationContainer>
           <RootStackScreen userToken={userToken} />
         </NavigationContainer>
