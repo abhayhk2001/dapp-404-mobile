@@ -1,3 +1,4 @@
+import { backendURL } from "../utils/constants";
 import getAdByTag from "./getAdByTags";
 
 const rpcCallForTransaction = async (contract, Provider, tag, address) => {
@@ -24,10 +25,12 @@ const rpcCallForTransaction = async (contract, Provider, tag, address) => {
   };
 
 const getPostByTags = async (Contract, adContract, Provider, tags, limit, address) => {
-         
+         try{
     tags = [1,2,5]
-    const tag_list_json = await fetch("http://localhost:4000/tags");
+    console.log(address)
+    const tag_list_json = await fetch(`${backendURL}/tags`);
     const tag_list = await tag_list_json.json();
+    console.log(tag_list)
     let posts = []
     for(let i=0; i<limit; i++){
       let tag = tags[i % tags.length];
@@ -65,8 +68,11 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
       }
       posts.push(_post);
     }
-    console.log(posts);
+    console.log(address);
     return posts;
+  } catch (err){
+    console.log(err);
+  }
 }
 
 export default getPostByTags;

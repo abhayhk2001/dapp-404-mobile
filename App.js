@@ -171,7 +171,8 @@ export default function App() {
       },
       isLoggedIn: () => {
         return true
-      }
+      },
+      userToken,
     }
   });
 
