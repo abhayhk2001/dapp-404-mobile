@@ -4,17 +4,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthContext } from "./src/context/AuthContext";
 import { PostContext } from "./src/context/PostContext";
+import { AuthProvider } from "./src/context/AuthContext";
 import { ThemeProvider } from '@rneui/themed';
 import { Icon } from "@rneui/base";
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
 
 
-
+import "./global"
 import {
   ConfirmPost, Dashboard, Splash, Login, Maximised, NewPost, Profile, Signup, NewsLang
 } from "./src/screens/allScreens";
-
 
 const AuthStack = createNativeStackNavigator();
 const NewPostStack = createNativeStackNavigator();
@@ -155,7 +155,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(false);
 
-
   const authContext = useMemo(() => {
     return {
       login: (token) => {
@@ -185,14 +184,14 @@ export default function App() {
   if (isLoading) {
     return <Splash />;
   }
-
+  console.log(AuthProvider);
   return (
-    <AuthContext.Provider value={authContext}>
+    <AuthProvider value={authContext}>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <RootStackScreen userToken={userToken} />
         </NavigationContainer>
       </ThemeProvider>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
