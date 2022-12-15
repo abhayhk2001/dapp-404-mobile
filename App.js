@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthContext } from "./src/context/AuthContext";
-import { ThemeProvider, createTheme } from '@rneui/themed';
+import { ThemeProvider } from '@rneui/themed';
 import { Icon } from "@rneui/base";
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
@@ -11,7 +11,7 @@ import NavigationBar from "./src/components/NavigationBar";
 
 
 import {
-  ConfirmPost, Dashboard, Splash, Login, Maximised, NewPost, Profile, Signup
+  ConfirmPost, Dashboard, Splash, Login, Maximised, NewPost, Profile, Signup, NewsLang
 } from "./src/screens/allScreens";
 
 
@@ -45,9 +45,12 @@ const AuthStackScreen = () => (
 
 function NewPostStackScreen() {
   return (
-    <NewPostStack.Navigator>
+    <NewPostStack.Navigator screenOptions={{
+      header: props => <NavigationBar {...props} />,
+    }}>
       <NewPostStack.Screen name="NewPost" component={NewPost} />
       <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
+      <NewPostStack.Screen name="NewsLang" component={NewsLang} />
     </NewPostStack.Navigator>
   );
 }
@@ -65,7 +68,9 @@ function DashboardStackScreen() {
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator screenOptions={{
+      header: props => <NavigationBar {...props} />,
+    }}>
       <ProfileStack.Screen name="Profile" component={Profile} />
     </ProfileStack.Navigator>
   );
@@ -77,13 +82,14 @@ function MainTabScreen() {
       tabBarShowLabel: false,
       headerShown: false,
       tabBarStyle: {
-        backgroundColor: theme.darkColors.primary,
+        backgroundColor: theme.darkColors.background,
         height: 60,
-        marginTop: -25,
-        borderColor: theme.darkColors.primary
+        marginTop: -20,
+        borderWidth: 0,
+        borderColor: theme.darkColors.primary,
       }
     }} >
-      <Tab.Screen name="NewPost" component={NewPostStackScreen} options={{
+      <Tab.Screen name="NewPostScreen" component={NewPostStackScreen} options={{
         tabBarIcon: (() => {
           return <Icon
             color={theme.darkColors.secondary}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import Post from '../components/Post';
 import theme from '../static/theme';
 import posts from '../assets/posts.json'

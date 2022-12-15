@@ -8,17 +8,19 @@ const Post = ({ title, description, navigation, /*truthPercentage*/ }) => {
 	const [seeLabels, setSeeLabels] = useState(false)
 	const truthPercentage = 91.35
 	return (
-		<View>
+		<View >
 			<Card containerStyle={{
 				marginHorizontal: 1,
 				maxWidth: "100%",
 				borderRadius: 30,
 				backgroundColor: theme.darkColors.primary,
+				borderWidth: 0
 			}}>
 				<TouchableOpacity onPress={() => navigation.navigate('Maximised', {
 					title: title,
 					description: description,
-					tags: []
+					tags: [],
+					truthPercentage: truthPercentage
 				})}>
 					<Card.Title style={{ fontSize: 20, color: "white", }}>{title}</Card.Title>
 				</TouchableOpacity>
