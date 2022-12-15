@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AuthContext } from "./src/context/AuthContext";
 import { PostContext } from "./src/context/PostContext";
-import { AuthProvider } from "./src/context/AuthContext";
+import { ContractProvider } from "./src/context/ContractContext";
+import { AuthContext } from "./src/context/AuthContext";
 import { ThemeProvider } from '@rneui/themed';
 import { Icon } from "@rneui/base";
 import theme from "./src/static/theme";
@@ -172,8 +172,8 @@ export default function App() {
       isLoggedIn: () => {
         return true
       }
-    };
-  }, []);
+    }
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -184,14 +184,15 @@ export default function App() {
   if (isLoading) {
     return <Splash />;
   }
-  console.log(AuthProvider);
   return (
-    <AuthProvider value={authContext}>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <RootStackScreen userToken={userToken} />
-        </NavigationContainer>
-      </ThemeProvider>
-    </AuthProvider>
+    <AuthContext.Provider value={authContext}>
+      < ContractProvider >
+        <ThemeProvider theme={theme}>
+          <NavigationContainer>
+            <RootStackScreen userToken={userToken} />
+          </NavigationContainer>
+        </ThemeProvider>
+      </ContractProvider >
+    </AuthContext.Provider>
   );
 }

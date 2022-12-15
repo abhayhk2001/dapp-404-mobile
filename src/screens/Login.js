@@ -7,6 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 const Login = (props) => {
 	const { login } = useContext(AuthContext);
 	const onPress = () => {
+		console.log(login)
 		login("Hello");
 	}
 	return (
