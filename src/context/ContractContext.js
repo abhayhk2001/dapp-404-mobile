@@ -8,30 +8,21 @@ import {
   adAbi,
 } from "../utils/constants.js";
 import { decode, encode } from 'base-64'
-console.log(encode, decode)
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 const Web3 = require("web3");
 
 // const { ethereum } = window;
 
-export const ContractContext = createContext(null);
+export const ContractContext = createContext();
 
-export const ContractProvider = ({ values, children }) => {
+export const ContractProvider = ({ children }) => {
   const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [backendContract, setBackendContract] = useState(null);
   const [backendAdContract, setBackendAdContract] = useState(null);
   const [user, setUser] = useState(null);
-  const [backend_provider, setBackendProvider] = useState(null);
-
-  async function getProfile(publicAddress) {
-    fetch("http://localhost:4000/profile/" + publicAddress)
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-      });
-  }
+  const [backendProvider, setBackendProvider] = useState(null);
 
   const createEthereumContract = async () => {
     try {
@@ -65,7 +56,8 @@ export const ContractProvider = ({ values, children }) => {
     }
   };
 
-  const login = async () => {
+  const login = async (account) => {
+    setAccount(account);
     const _contract = await createEthereumContract();
     setContract(_contract);
   };
@@ -89,10 +81,9 @@ export const ContractProvider = ({ values, children }) => {
   return (
     <ContractContext.Provider
       value={{
-        ...values,
         account,
         contract,
-        backend_provider,
+        backendProvider,
         backendContract,
         backendAdContract,
         login,

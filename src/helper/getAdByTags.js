@@ -1,4 +1,4 @@
-import { ownerWallet, adContractAddress as contractAddress, private_key } from '../utils/constants'
+// import { ownerWallet, adContractAddress as contractAddress, private_key } from '../utils/constants'
 const rpcCallForTransaction = async ( contract, tags) => {
     try {
       console.log(`Performing Ad RPC`);

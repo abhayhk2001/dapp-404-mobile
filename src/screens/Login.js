@@ -3,12 +3,13 @@ import { Text, View, StyleSheet } from 'react-native';
 import theme from '../static/theme';
 import { Button } from '@rneui/base';
 import { AuthContext } from '../context/AuthContext';
-
+import { ContractContext } from '../context/ContractContext';
 const Login = (props) => {
 	const { login } = useContext(AuthContext);
+	const {login : _login } = useContext(ContractContext);
 	const onPress = () => {
-		console.log(login)
-		login("Hello");
+		_login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
+		login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
 	}
 	return (
 		<View style={styles.container}>
@@ -17,8 +18,8 @@ const Login = (props) => {
 				onPress();
 			}} />
 			<View style={{ flexDirection: 'row', marginTop: 100 }}>
-				<Text style={{ color: "white", marginBottom: 20, fontSize: 10 }}>New Here ...</Text>
-				<Button title='Connect to Wallet' buttonStyle={{}} />
+				{/* <Text style={{ color: "white", marginBottom: 20, fontSize: 10 }}>New Here ...</Text> */}
+				<Button title='Sign Up' buttonStyle={{}} />
 			</View>
 		</View>
 	);
