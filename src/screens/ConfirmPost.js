@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import theme from '../static/theme'
 import tags from '../assets/tags.json'
 import { Button, Icon } from '@rneui/base'
+import { PostContext } from '../context/PostContext'
 
-const ConfirmPost = ({ route }) => {
-	const { title, description, tag } = route.params
+const ConfirmPost = () => {
+	const { postData } = useContext(PostContext)
+	const { title, description, tag, newslang } = postData
 
 	return (
 		<ScrollView style={styles.container}>
@@ -31,10 +33,18 @@ const ConfirmPost = ({ route }) => {
 				/>
 				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tags[tag - 1].name}</Text>
 			</View>
+			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
+				NewsLang: {newslang?.subject + newslang?.object + newslang?.sentence}
+			</Text>
 			<View style={{ marginTop: 20, marginHorizontal: 30 }}>
-				<Button type="solid" color={theme.darkColors.secondary} titleStyle={{
-					fontSize: 25
-				}}>
+				<Button type="solid" color={theme.darkColors.secondary}
+					titleStyle={{
+						fontSize: 25
+					}}
+					onPress={() => {
+						console.log(postData)
+					}}
+				>
 					Post
 				</Button>
 			</View>

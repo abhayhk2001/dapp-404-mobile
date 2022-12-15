@@ -1,22 +1,74 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import { Button } from '@rneui/base'
+import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native'
+import { Button, Input } from '@rneui/base'
 import theme from '../static/theme'
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import { PostContext } from '../context/PostContext'
 
-const NewsLang = ({ route, navigation }) => {
-	const { title, description, tag } = route.params
+const NewsLang = ({ navigation }) => {
+	const { postData, setPostData } = useContext(PostContext)
+	const { title, description, tag } = postData
+
+	const [subject, setSubject] = useState("")
+	const [object, setObject] = useState("")
+	const [sentence, setSentence] = useState("")
+	const [connector, setConnector] = useState("")
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
-				{title}
+				Title : {title}
 			</Text>
+			<View style={{ marginTop: 25, paddingLeft: 30 }}>
+				<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+					<TextInput
+						style={{ fontSize: 20, color: theme.darkColors.white, textDecorationLine: 'underline', textDecorationColor: theme.darkColors.white }}
+						placeholder='Enter the Subject'
+						placeholderTextColor={"white"}
+						value={subject}
+						onChangeText={(text) => { setSubject(text) }}
+					/>
+				</View>
+				<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+					<TextInput
+						style={{ fontSize: 20, color: theme.darkColors.white, textDecorationLine: 'underline', textDecorationColor: theme.darkColors.white }}
+						placeholder='Enter the Object'
+						placeholderTextColor={"white"}
+						value={object}
+						onChangeText={(text) => { setObject(text) }}
+					/>
+				</View>
+				<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+					<TextInput
+						style={{ fontSize: 20, color: theme.darkColors.white, textDecorationLine: 'underline', textDecorationColor: theme.darkColors.white }}
+						placeholder='Enter the Sentence'
+						value={sentence}
+						placeholderTextColor={"white"}
+						onChangeText={(text) => { setSentence(text) }}
+					/>
+				</View>
+				<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+					<TextInput
+						style={{ fontSize: 20, color: theme.darkColors.white, textDecorationLine: 'underline', textDecorationColor: theme.darkColors.white }}
+						placeholder='Enter the Connector'
+						value={connector}
+						placeholderTextColor={"white"}
+						onChangeText={(text) => { setConnector(text) }}
+					/>
+				</View>
+			</View>
 			<View style={{ marginTop: 20, marginHorizontal: 30 }}>
 				<Button type="solid" color={theme.darkColors.secondary} onPress={() => {
-					navigation.navigate("ConfirmPost", {
+					setPostData({
 						title: title,
 						description: description,
 						tag: tag,
+						newslang: {
+							subject: subject,
+							object: object,
+							sentence: sentence,
+							connector: connector
+						}
 					})
+					navigation.navigate("ConfirmPost")
 				}} titleStyle={{
 					fontSize: 25
 				}}>

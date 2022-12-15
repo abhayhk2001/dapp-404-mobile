@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthContext } from "./src/context/AuthContext";
+import { PostContext } from "./src/context/PostContext";
 import { ThemeProvider } from '@rneui/themed';
 import { Icon } from "@rneui/base";
 import theme from "./src/static/theme";
@@ -44,14 +45,17 @@ const AuthStackScreen = () => (
 );
 
 function NewPostStackScreen() {
+  const [postData, setPostData] = useState({})
   return (
-    <NewPostStack.Navigator screenOptions={{
-      header: props => <NavigationBar {...props} />,
-    }}>
-      <NewPostStack.Screen name="NewPost" component={NewPost} />
-      <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
-      <NewPostStack.Screen name="NewsLang" component={NewsLang} />
-    </NewPostStack.Navigator>
+    <PostContext.Provider value={{ postData, setPostData }}>
+      <NewPostStack.Navigator screenOptions={{
+        header: props => <NavigationBar {...props} />,
+      }}>
+        <NewPostStack.Screen name="NewPost" component={NewPost} />
+        <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
+        <NewPostStack.Screen name="NewsLang" component={NewsLang} />
+      </NewPostStack.Navigator>
+    </PostContext.Provider>
   );
 }
 

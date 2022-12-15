@@ -1,14 +1,16 @@
 import { ScrollView, TextInput, StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Input, Button } from '@rneui/base'
 import theme from '../static/theme'
 import { Picker } from '@react-native-picker/picker';
 import tags from '../assets/tags.json'
+import { PostContext } from '../context/PostContext';
 
 const NewPost = ({ navigation }) => {
 	const [title, setTitle] = useState("")
 	const [description, setDescription] = useState("")
 	const [tag, setTag] = useState(1);
+	const { setPostData } = useContext(PostContext)
 	return (
 		<ScrollView style={styles.container}>
 			<Input
@@ -44,11 +46,12 @@ const NewPost = ({ navigation }) => {
 			</Picker>
 			<View style={{ marginTop: 20, marginHorizontal: 30 }}>
 				<Button type="solid" color={theme.darkColors.secondary} onPress={() => {
-					navigation.navigate("NewsLang", {
+					setPostData({
 						title: title,
 						description: description,
 						tag: tag,
 					})
+					navigation.navigate("NewsLang")
 				}} titleStyle={{
 					fontSize: 25
 				}}>
