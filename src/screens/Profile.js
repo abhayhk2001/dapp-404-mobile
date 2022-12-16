@@ -1,18 +1,136 @@
-import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+	StyleSheet,
+	Text,
+	View, ScrollView
+} from 'react-native';
+import { Icon } from '@rneui/base';
+import { ListItem } from '@rneui/themed';
 
-function ProfileScreen({ navigation }) {
+import { Avatar } from '@rneui/base';
+
+const Profile = ({ }) => {
+	const data = {
+		name: "Abhay H Kashyap",
+		username: 'abhayhk',
+	}
+	function getInitials(name) {
+		return name.split(" ").map((n) => n[0]).join("");
+	}
+	function generateRandomColor() {
+		let maxVal = 0xFFFFFF; // 16777215
+		let randomNumber = Math.random() * maxVal;
+		randomNumber = Math.floor(randomNumber);
+		randomNumber = randomNumber.toString(16);
+		let randColor = randomNumber.padStart(6, 0);
+		return `#${randColor.toUpperCase()}`
+	}
+	const [initials, setInitials] = useState(getInitials(data.name))
+	const [bgColor, setBgColor] = useState(generateRandomColor())
+
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Profile screen</Text>
-			<Button
-				title="Go to Details"
-				onPress={() => navigation.navigate('Details')}
+		<ScrollView style={styles.container}>
+			<View style={styles.header}></View>
+			<Avatar
+				size={64}
+				rounded
+				title={initials}
+				containerStyle={{
+					backgroundColor: bgColor,
+					width: 130,
+					height: 130,
+					borderRadius: 75,
+					marginBottom: 10,
+					alignSelf: 'center',
+					position: 'absolute',
+					marginTop: 130
+				}}
 			/>
-		</View>
+			<ScrollView style={styles.body} contentContainerStyle={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center'
+			}}>
+				<Text style={styles.name}>Hi, {data.username}</Text>
+				<Options list={[{ "name": "Name: Abhay H Kashyap" }, { "name": "a" }, { "name": "a" }]} name={"Personal Details"} />
+				<Options list={[{ "name": "Name: Abhay H Kashyap" }, { "name": "a" }, { "name": "a" }]} name={"Account Details"} />
+			</ScrollView>
+		</ScrollView>
 	);
 }
 
-const styles = StyleSheet.create({})
+function Options({ list, name }) {
+	const [expanded, setExpanded] = useState(false)
+	return (
+		<ListItem.Accordion
+			containerStyle={{
+				marginTop: 30,
+			}}
+			content={
+				<View style={{ width: "70%", paddingLeft: 20 }}>
+					<ListItem.Title style={{ fontSize: 20 }}>{name}</ListItem.Title>
+				</View>
+			}
+			isExpanded={expanded}
+			onPress={() => {
+				setExpanded(!expanded);
+			}}
+		>
+			{list.map((l, i) => (
+				<ListItem key={i} bottomDivider containerStyle={{ width: 325 }}>
+					<ListItem.Title>{l.name}</ListItem.Title>
+				</ListItem>
+			))}
+		</ListItem.Accordion>
+	)
+}
 
-export default ProfileScreen;
+export default Profile
+
+const styles = StyleSheet.create({
+	header: {
+		backgroundColor: "#00BFFF",
+		height: 200,
+	},
+	name: {
+		fontSize: 22,
+		color: "#00000",
+		fontWeight: '600',
+	},
+	body: {
+		marginTop: 70,
+
+	},
+	bodyContent: {
+		flex: 1,
+		alignItems: 'center',
+		padding: 30,
+	},
+	name: {
+		fontSize: 28,
+		color: "#696969",
+		fontWeight: "600"
+	},
+	info: {
+		fontSize: 16,
+		color: "#00BFFF",
+		marginTop: 10
+	},
+	description: {
+		fontSize: 16,
+		color: "#696969",
+		marginTop: 10,
+		textAlign: 'center'
+	},
+	buttonContainer: {
+		marginTop: 10,
+		height: 45,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginBottom: 20,
+		width: 250,
+		borderRadius: 30,
+		backgroundColor: "#00BFFF",
+	},
+});

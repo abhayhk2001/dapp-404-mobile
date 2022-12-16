@@ -75,7 +75,7 @@ function ProfileStackScreen() {
     <ProfileStack.Navigator screenOptions={{
       header: props => <NavigationBar {...props} />,
     }}>
-      <ProfileStack.Screen name="Profile" component={Profile} />
+      <ProfileStack.Screen name="MyProfile" component={Profile} />
     </ProfileStack.Navigator>
   );
 }
