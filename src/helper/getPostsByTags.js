@@ -36,7 +36,7 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
       let post = await rpcCallForTransaction( Contract, Provider, tag, address);
       if(!post)
         continue;
-      if(i==0){
+      if(i%3==0){
         try{
           ad = await getAdByTag(adContract, Provider, [0,1,2], address)
           console.log("Ad",ad);
@@ -58,7 +58,7 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
                     name: tag_list[tagInd].name,//should add db query here
                 }],
             reportIDs: post.reports,
-            rating:post.rating/10e5,
+            rating:Math.floor(post.rating/10e3) / 100,
             interactions:post.interactions,
             truth:post.truth,
             ad,

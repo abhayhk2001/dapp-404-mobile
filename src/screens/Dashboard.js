@@ -18,7 +18,7 @@ function Dashboard({ navigation }) {
 			// console.log(tags);
 			getPostByTags(backendContract,backendAdContract,backendProvider,tags, 10, account)
 			.then((_posts)=>{
-				console.log(_posts);
+				// console.log(_posts);
 				setPosts(_posts);
 			})
 			.catch((err)=> {console.log(err, userToken)});
