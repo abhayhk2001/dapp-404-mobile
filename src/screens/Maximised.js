@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { ScrollView, Text, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
@@ -6,13 +6,13 @@ import { ReportPostContext } from '../context/ReportPostContext'
 
 const Maximised = ({ navigation }) => {
 	const { postData } = useContext(ReportPostContext)
-	const { title, description, truthPercentage } = postData
+	const { title, description, truthPercentage, tagName } = postData
 	return (
-		<View style={styles.container}>
+		<ScrollView style={styles.container}>
 			<Text style={styles.header}>{title}</Text>
 			<Text style={styles.text}>{description}</Text>
 			<View style={styles.options}>
-				<View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30 }}>
+				<View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
 					<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
 						<Icon
 							color={theme.darkColors.secondary}
@@ -22,6 +22,7 @@ const Maximised = ({ navigation }) => {
 						/>
 						<Text style={{ color: theme.darkColors.white, }}> Views 123</Text>
 					</View>
+
 					<View style={{
 						height: "100%",
 					}}>
@@ -35,13 +36,22 @@ const Maximised = ({ navigation }) => {
 						</Text>
 					</View>
 				</View>
+				<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 40 }}>
+					<Icon
+						color={theme.darkColors.secondary}
+						name="label"
+						size={25}
+						type="material"
+					/>
+					<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tagName}</Text>
+				</View>
 				<Button type="solid" color={theme.darkColors.error} onPress={() => {
 					navigation.navigate("New Report Post")
 				}}  >
 					Report Post
 				</Button>
 			</View>
-		</View>
+		</ScrollView>
 	)
 }
 

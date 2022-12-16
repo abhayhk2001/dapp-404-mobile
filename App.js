@@ -72,8 +72,8 @@ function DashboardStackScreen() {
         <DashboardStack.Screen name="Home" component={Dashboard} />
         <DashboardStack.Screen name="Maximised" component={Maximised} />
         <DashboardStack.Screen name="New Report Post" component={NewReportPost} />
-        <DashboardStack.Screen name="Confirm Post" component={ConfirmReportPost} />
-        <DashboardStack.Screen name="News Lang" component={ReportNewsLang} />
+        <DashboardStack.Screen name="Confirm Report Post" component={ConfirmReportPost} />
+        <DashboardStack.Screen name="Report News Lang" component={ReportNewsLang} />
       </DashboardStack.Navigator>
     </ReportPostContext.Provider>
   );

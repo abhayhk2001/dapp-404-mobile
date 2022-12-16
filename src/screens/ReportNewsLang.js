@@ -6,7 +6,7 @@ import { ReportPostContext } from '../context/ReportPostContext'
 
 const NewsLang = ({ navigation }) => {
 	const { postData, setPostData } = useContext(ReportPostContext)
-	const { title, description, tagID, tagName, originPostInfo } = postData
+	const { title, description, tag, originPostInfo } = postData
 
 	const [subject, setSubject] = useState("")
 	const [object, setObject] = useState("")
@@ -60,17 +60,11 @@ const NewsLang = ({ navigation }) => {
 					setPostData({
 						title: title,
 						description: description,
-						tagID: tagID,
-						tagName: tagName,
+						tag: tag,
 						originPostInfo: originPostInfo,
-						newslang: {
-							subject: subject,
-							object: object,
-							sentence: sentence,
-							connector: connector
-						}
+						newslang: [subject, object, sentence].join(" ")
 					})
-					navigation.navigate("ConfirmPost")
+					navigation.navigate("Confirm Report Post")
 				}} titleStyle={{
 					fontSize: 25
 				}}>

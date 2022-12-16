@@ -62,12 +62,7 @@ const NewsLang = ({ navigation }) => {
 						description: description,
 						tagID: tagID,
 						tagName: tagName,
-						newslang: {
-							subject: subject,
-							object: object,
-							sentence: sentence,
-							connector: connector
-						}
+						newslang: [subject, object, sentence].join(" ")
 					})
 					navigation.navigate("ConfirmPost")
 				}} titleStyle={{

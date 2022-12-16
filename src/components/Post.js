@@ -7,7 +7,7 @@ import { ReportPostContext } from '../context/ReportPostContext';
 import Advertisment from "../components/Ad"
 
 
-const Post = ({ title, description, navigation, truthRating, truth = true, ad, img }) => {
+const Post = ({ title, description, navigation, truthRating, truth = true, ad, img, postID, tag, views }) => {
 	const { setPostData } = useContext(ReportPostContext)
 	return (
 		<View >
@@ -20,18 +20,17 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 			}}>
 				<TouchableOpacity onPress={() => {
 					setPostData({
-
 						title: title,
 						description: description,
 						truthPercentage: truthRating,
-						tagID: 0,
-						tagName: "",
+						tagID: tag.id,
+						tagName: tag.name,
 						originPostInfo: {
-							id: 0,
+							id: postID,
 							title: title,
 							description: description,
 							truthPercentage: truthRating,
-							tagID: 0,
+							tag: tag,
 						}
 					})
 					navigation.navigate('Maximised')
@@ -54,13 +53,14 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 					marginHorizontal: 30,
 					flexDirection: "row", justifyContent: "space-between"
 				}}>
-					<TouchableOpacity onPress={() => { }}>
+					<TouchableOpacity onPress={() => { }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 						<Icon
 							color={theme.darkColors.secondary}
 							name="visibility"
 							size={30}
 							type="material"
 						/>
+						<Text style={{ color: theme.darkColors.white, paddingLeft: 5, fontWeight: 'bold', fontSize: 20 }}>{views}</Text>
 					</TouchableOpacity>
 					<View style={{
 						height: "100%",

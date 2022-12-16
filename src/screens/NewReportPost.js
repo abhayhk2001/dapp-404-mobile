@@ -15,7 +15,7 @@ const NewPost = ({ navigation }) => {
 	const [tags, setTags] = useState([])
 
 	const { postData, setPostData } = useContext(ReportPostContext)
-	const { originPostInfo, tagID, tagName } = postData
+	const { originPostInfo } = postData
 
 	useEffect(() => {
 		axios.get(`${backendURL}/tags`).then((res) => {
@@ -57,11 +57,13 @@ const NewPost = ({ navigation }) => {
 					setPostData({
 						title: title,
 						description: description,
-						tagID: tagID,
-						tagName: tags[tagID - 1].name,
+						tag: {
+							id: 0,
+							name: "Report"
+						},
 						originPostInfo: originPostInfo
 					})
-					navigation.navigate("ReportNewsLang")
+					navigation.navigate("Report News Lang")
 				}} titleStyle={{
 					fontSize: 25
 				}}>

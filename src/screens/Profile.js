@@ -4,7 +4,7 @@ import {
 	Text,
 	View, ScrollView
 } from 'react-native';
-import { Icon } from '@rneui/base';
+import theme from '../static/theme'
 import { ListItem } from '@rneui/themed';
 
 import { Avatar } from '@rneui/base';
@@ -65,10 +65,14 @@ function Options({ list, name }) {
 		<ListItem.Accordion
 			containerStyle={{
 				marginTop: 30,
+				backgroundColor: "white",
+				borderRadius: 30
 			}}
 			content={
-				<View style={{ width: "70%", paddingLeft: 20 }}>
-					<ListItem.Title style={{ fontSize: 20 }}>{name}</ListItem.Title>
+				<View style={{
+					width: "70%", paddingLeft: 20, backgroundColor: "white"
+				}}>
+					<ListItem.Title style={{ fontSize: 20, color: theme.darkColors.white }}>{name}</ListItem.Title>
 				</View>
 			}
 			isExpanded={expanded}
@@ -88,49 +92,20 @@ function Options({ list, name }) {
 export default Profile
 
 const styles = StyleSheet.create({
+	container: {
+
+		backgroundColor: theme.darkColors.background,
+	},
 	header: {
-		backgroundColor: "#00BFFF",
+		backgroundColor: theme.darkColors.secondary,
 		height: 200,
 	},
 	name: {
 		fontSize: 22,
-		color: "#00000",
+		color: "#ffffff",
 		fontWeight: '600',
 	},
 	body: {
 		marginTop: 70,
-
-	},
-	bodyContent: {
-		flex: 1,
-		alignItems: 'center',
-		padding: 30,
-	},
-	name: {
-		fontSize: 28,
-		color: "#696969",
-		fontWeight: "600"
-	},
-	info: {
-		fontSize: 16,
-		color: "#00BFFF",
-		marginTop: 10
-	},
-	description: {
-		fontSize: 16,
-		color: "#696969",
-		marginTop: 10,
-		textAlign: 'center'
-	},
-	buttonContainer: {
-		marginTop: 10,
-		height: 45,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		marginBottom: 20,
-		width: 250,
-		borderRadius: 30,
-		backgroundColor: "#00BFFF",
 	},
 });

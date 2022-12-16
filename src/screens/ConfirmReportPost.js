@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TextInput, Alert } from 'react-native'
 import React, { useContext, useState } from 'react'
+
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
 import { ReportPostContext } from '../context/ReportPostContext'
@@ -11,9 +12,8 @@ import getTruthRating from '../helper/getTruthRating'
 const ConfirmPost = ({ navigation }) => {
 	const { postData } = useContext(ReportPostContext)
 	const [isLoading, setIsLoading] = useState(false)
-	const { title, description, tagID, newslang, tagName, originPostInfo } = postData
+	const { title, description, tag, newslang, originPostInfo } = postData
 	const { backendContract, backendProvider, account } = useContext(ContractContext);
-	let headingInNewLangauge = [newslang?.subject, newslang?.object, newslang?.sentence].join(" ")
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
@@ -36,14 +36,14 @@ const ConfirmPost = ({ navigation }) => {
 					size={25}
 					type="material"
 				/>
-				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tagName}</Text>
+				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tag.name}</Text>
 			</View>
 			<View style={{ marginTop: 30, display: 'flex', alignItems: 'center' }}>
 				<Text style={{ fontSize: 25, color: theme.darkColors.white }}>
 					Heading in News Langauge
 				</Text>
 				<Text style={{ fontSize: 20, color: theme.darkColors.white }}>
-					{headingInNewLangauge}
+					{newslang}
 				</Text>
 			</View>
 			<View style={{ marginTop: 100, marginHorizontal: 30 }}>
@@ -58,12 +58,14 @@ const ConfirmPost = ({ navigation }) => {
 						// 	.then((truthRating) => {
 						// 		postToBlockchain(backendContract, backendProvider, account, headingInNewLangauge, tagID, title, description, truthRating);
 						// 	})
-						setIsLoading(false);
-						Alert.alert("Submitted", "Post with the title " + title + ' is Submitted', [{
-							text: 'Move to Dashboard', onPress: () => {
-								navigation.navigate('Dashboard')
-							}
-						}])
+						setTimeout(() => {
+							setIsLoading(false);
+							Alert.alert("Reported", "Report Post with the title " + title + ' is Submitted', [{
+								text: 'Move to Dashboard', onPress: () => {
+									navigation.navigate('Dashboard')
+								}
+							}])
+						}, 500);
 					}}
 				>
 					Confirm and Post

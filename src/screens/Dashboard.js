@@ -59,7 +59,7 @@ function Dashboard({ navigation }) {
 
 	}, [])
 
-	const renderPost = ({ item, key, index }) => {
+	const renderPost = ({ item }) => {
 		return (
 			<Post
 				key={item.id * 10 + item.tag.id}
@@ -69,6 +69,8 @@ function Dashboard({ navigation }) {
 				navigation={navigation}
 				truthRating={item.rating}
 				truth={item.truth}
+				views={item.interactions}
+				tag={item.tag}
 				ad={item.ad}
 				img={item.img}
 			/>

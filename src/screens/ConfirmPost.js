@@ -13,7 +13,6 @@ const ConfirmPost = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const { title, description, tagID, newslang, tagName } = postData
 	const { backendContract, backendProvider, account } = useContext(ContractContext);
-	let headingInNewLangauge = [newslang?.subject, newslang?.object, newslang?.sentence].join(" ")
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
@@ -43,7 +42,7 @@ const ConfirmPost = ({ navigation }) => {
 					Heading in News Langauge
 				</Text>
 				<Text style={{ fontSize: 20, color: theme.darkColors.white }}>
-					{headingInNewLangauge}
+					{newslang}
 				</Text>
 			</View>
 			<View style={{ marginTop: 100, marginHorizontal: 30 }}>

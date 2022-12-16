@@ -69,6 +69,7 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
         truth: post.truth,
         ad,
       }
+      ad = ""
       if (post.isReportPost) {
         let report = await Contract.methods.reportStats(post.id).call();
         console.log(report);
