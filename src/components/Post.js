@@ -3,9 +3,12 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { Card, Icon } from "@rneui/base";
 import theme from '../static/theme';
 
+import Advertisment from "../components/Ad"
 
-const Post = ({ title, description, navigation, truthRating, truth = true }) => {
+
+const Post = ({ title, description, navigation, truthRating, truth = true, ad, img }) => {
 	const [seeLabels, setSeeLabels] = useState(false)
+	console.log("image", img)
 	return (
 		<View >
 			<Card containerStyle={{
@@ -70,6 +73,9 @@ const Post = ({ title, description, navigation, truthRating, truth = true }) => 
 					</TouchableOpacity>
 				</View>
 			</Card>
+			{ad ? <Advertisment
+				ad={ad}
+			/> : <></>}
 		</View>
 	)
 }

@@ -6,7 +6,7 @@ import { PostContext } from '../context/PostContext'
 
 const NewsLang = ({ navigation }) => {
 	const { postData, setPostData } = useContext(PostContext)
-	const { title, description, tag } = postData
+	const { title, description, tagID, tagName } = postData
 
 	const [subject, setSubject] = useState("")
 	const [object, setObject] = useState("")
@@ -60,7 +60,8 @@ const NewsLang = ({ navigation }) => {
 					setPostData({
 						title: title,
 						description: description,
-						tag: tag,
+						tagID: tagID,
+						tagName: tagName,
 						newslang: {
 							subject: subject,
 							object: object,

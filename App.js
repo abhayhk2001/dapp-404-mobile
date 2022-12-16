@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { View, Text } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ThemeProvider } from '@rneui/themed';
+import { Icon } from "@rneui/base";
+
 import { PostContext } from "./src/context/PostContext";
 import { ContractProvider } from "./src/context/ContractContext";
 import { AuthContext } from "./src/context/AuthContext";
-import { ThemeProvider } from '@rneui/themed';
-import { Icon } from "@rneui/base";
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
-
-
 import "./global"
 import {
-  ConfirmPost, Dashboard, Splash, Login, Maximised, NewPost, Profile, Signup, NewsLang
+  ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang
 } from "./src/screens/allScreens";
+
 
 const AuthStack = createNativeStackNavigator();
 const NewPostStack = createNativeStackNavigator();
@@ -179,11 +180,15 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500);
   }, []);
 
   if (isLoading) {
-    return <Splash />;
+    return (
+      <View style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading</Text>
+      </View>
+    );
   }
   return (
     <AuthContext.Provider value={authContext}>

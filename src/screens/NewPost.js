@@ -1,16 +1,27 @@
 import { ScrollView, TextInput, StyleSheet, View } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Input, Button } from '@rneui/base'
 import theme from '../static/theme'
+
+import axios from 'axios'
+
 import { Picker } from '@react-native-picker/picker';
-import tags from '../assets/tags.json'
 import { PostContext } from '../context/PostContext';
+import { backendURL } from "../utils/constants";
 
 const NewPost = ({ navigation }) => {
 	const [title, setTitle] = useState("")
 	const [description, setDescription] = useState("")
 	const [tag, setTag] = useState(1);
+	const [tags, setTags] = useState([])
 	const { setPostData } = useContext(PostContext)
+
+	useEffect(() => {
+		axios.get(`${backendURL}/tags`).then((res) => {
+			setTags(res.data)
+		})
+	})
+
 	return (
 		<ScrollView style={styles.container}>
 			<Input
@@ -49,7 +60,8 @@ const NewPost = ({ navigation }) => {
 					setPostData({
 						title: title,
 						description: description,
-						tag: tag,
+						tagID: tag,
+						tagName: tags[tag - 1].name
 					})
 					navigation.navigate("NewsLang")
 				}} titleStyle={{

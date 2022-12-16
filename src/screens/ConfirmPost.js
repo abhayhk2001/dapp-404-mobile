@@ -1,17 +1,19 @@
-import { View, Text, StyleSheet, ScrollView, TextInput } from 'react-native'
-import React, { useContext } from 'react'
+import { View, Text, StyleSheet, ScrollView, TextInput, Alert } from 'react-native'
+import React, { useContext, useState } from 'react'
 import theme from '../static/theme'
-import tags from '../assets/tags.json'
 import { Button, Icon } from '@rneui/base'
 import { PostContext } from '../context/PostContext'
 import { ContractContext } from '../context/ContractContext'
 import postToBlockchain from '../helper/postToBlockchain'
 import getTruthRating from '../helper/getTruthRating'
-const ConfirmPost = () => {
+
+
+const ConfirmPost = ({ navigation }) => {
 	const { postData } = useContext(PostContext)
-	const { title, description, tag, newslang } = postData
-	const {backendContract, backendProvider, account } = useContext(ContractContext);
-	let newsLang = ""
+	const [isLoading, setIsLoading] = useState(false)
+	const { title, description, tagID, newslang, tagName } = postData
+	const { backendContract, backendProvider, account } = useContext(ContractContext);
+	let headingInNewLangauge = [newslang?.subject, newslang?.object, newslang?.sentence].join(" ")
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
@@ -34,23 +36,37 @@ const ConfirmPost = () => {
 					size={25}
 					type="material"
 				/>
-				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tags[tag - 1].name}</Text>
+				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tagName}</Text>
 			</View>
-			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
-				NewsLang: {newsLang = (newslang?.subject + newslang?.object + newslang?.sentence)}
-			</Text>
-			<View style={{ marginTop: 20, marginHorizontal: 30 }}>
+			<View style={{ marginTop: 30, display: 'flex', alignItems: 'center' }}>
+				<Text style={{ fontSize: 25, color: theme.darkColors.white }}>
+					Heading in News Langauge
+				</Text>
+				<Text style={{ fontSize: 20, color: theme.darkColors.white }}>
+					{headingInNewLangauge}
+				</Text>
+			</View>
+			<View style={{ marginTop: 100, marginHorizontal: 30 }}>
 				<Button type="solid" color={theme.darkColors.secondary}
 					titleStyle={{
 						fontSize: 25
 					}}
+					loading={isLoading}
 					onPress={() => {
-						getTruthRating(newsLang)
-						.then((truthRating)=>{
-							console.log(truthRating)
-							postToBlockchain(backendContract, backendProvider, account, newsLang, tag, title, description, truthRating);
-						})
-						}}
+						setIsLoading(true)
+						// getTruthRating(headingInNewLangauge)
+						// 	.then((truthRating) => {
+						// 		postToBlockchain(backendContract, backendProvider, account, headingInNewLangauge, tagID, title, description, truthRating);
+						// 	})
+						setTimeout(() => {
+							setIsLoading(false);
+							Alert.alert("Submitted", "Post with the title " + title + ' is Submitted', [{
+								text: 'Move to Dashboard', onPress: () => {
+									navigation.navigate('Dashboard')
+								}
+							}])
+						}, 2500);
+					}}
 				>
 					Confirm and Post
 				</Button>
@@ -64,7 +80,6 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		paddingHorizontal: 20,
 		backgroundColor: theme.darkColors.background,
-		height: "100%"
 	},
 	multilineText: {
 		borderColor: 'white', borderWidth: 1, color: theme.darkColors.white, borderRadius: 20, paddingHorizontal: 20, fontSize: 20, textAlignVertical: "top", paddingVertical: 10,

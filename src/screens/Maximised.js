@@ -5,11 +5,10 @@ import { Button, Icon } from '@rneui/base'
 
 const Maximised = ({ route }) => {
 	const { title, description, truthPercentage } = route.params
-	console.log(title, description)
 	return (
 		<View style={styles.container}>
-			<Text style={styles.header}>{title + title + title + title + title}</Text>
-			<Text style={styles.text}>{description + description}</Text>
+			<Text style={styles.header}>{title}</Text>
+			<Text style={styles.text}>{description}</Text>
 			<View style={styles.options}>
 				<View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
 					<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
