@@ -16,7 +16,7 @@ function Dashboard({ navigation }) {
 		.then((tags)=>{
 			tags = tags.map((tag) =>{ return tag["id"] });
 			// console.log(tags);
-			getPostByTags(backendContract,backendAdContract,backendProvider,tags, 5, account)
+			getPostByTags(backendContract,backendAdContract,backendProvider,tags, 10, account)
 			.then((_posts)=>{
 				console.log(_posts);
 				setPosts(_posts);
@@ -35,6 +35,8 @@ function Dashboard({ navigation }) {
 						title={post.title}
 						description={post.description}
 						navigation={navigation}
+						truthRating={post.rating}
+						truth={post.truth}
 					/>
 				)
 			})}
