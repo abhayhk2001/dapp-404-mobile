@@ -31,7 +31,8 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 							description: description,
 							truthPercentage: truthRating,
 							tag: tag,
-						}
+						},
+						views
 					})
 					navigation.navigate('Maximised')
 				}}>

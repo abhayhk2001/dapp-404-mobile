@@ -67,6 +67,9 @@ const ConfirmPost = ({ navigation }) => {
 				>
 					Confirm and Post
 				</Button>
+				<Text>
+					 
+				</Text>
 			</View>
 		</ScrollView>
 	)

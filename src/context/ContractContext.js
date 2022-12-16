@@ -1,11 +1,13 @@
 import React, { createContext, useState } from "react";
-import { abi } from "../utils/constants.js";
 import {
+  abi, 
+  userAbi,
   contractAddress,
   rpc_url,
   private_key,
   adContractAddress,
   adAbi,
+  userContractAddress,
 } from "../utils/constants.js";
 import { decode, encode } from 'base-64'
 if (!global.btoa) { global.btoa = encode }
@@ -17,17 +19,18 @@ const Web3 = require("web3");
 export const ContractContext = createContext();
 
 export const ContractProvider = ({ children }) => {
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
+  const [ userAccount, setUserAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [backendContract, setBackendContract] = useState(null);
   const [backendAdContract, setBackendAdContract] = useState(null);
+  const [userContract, setUserContract] = useState(null);
+  const [backendUserContract, setBackendUserContract] = useState(null);
   const [user, setUser] = useState(null);
   const [backendProvider, setBackendProvider] = useState(null);
 
   const createEthereumContract = async () => {
     try {
-      //   if (!ethereum) return console.log("Please install metamask");
-
       let backendProvider = new Web3(rpc_url);
       backendProvider.eth.accounts.wallet.add(private_key);
       //   const _account = await ethereum.request({
@@ -47,6 +50,11 @@ export const ContractProvider = ({ children }) => {
         adAbi,
         adContractAddress
       );
+      const _backendUserContract = new backendProvider.eth.Contract(
+        userAbi,
+        userContractAddress,
+      )
+      setBackendUserContract(_backendUserContract);
       setBackendAdContract(adContract);
       setBackendProvider(backendProvider);
       setBackendContract(tokenContract);
@@ -57,7 +65,7 @@ export const ContractProvider = ({ children }) => {
   };
 
   const login = async (account) => {
-    setAccount(account);
+    setUserAccount(account);
     const _contract = await createEthereumContract();
     setContract(_contract);
   };
@@ -66,6 +74,9 @@ export const ContractProvider = ({ children }) => {
     if (user) return user;
   };
 
+  const signUp = () => {
+    // userContract signup
+  }
   const getPA = () => {
     return account;
   };
@@ -81,11 +92,13 @@ export const ContractProvider = ({ children }) => {
   return (
     <ContractContext.Provider
       value={{
+        signUp,
         account,
         contract,
         backendProvider,
         backendContract,
         backendAdContract,
+        backendUserContract,
         login,
         logout,
         isLoggedIn,

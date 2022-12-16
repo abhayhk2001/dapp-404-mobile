@@ -15,6 +15,7 @@ const rpcCallForTransaction = async (contract, Provider, tag, address) => {
       gas: 10000000,
       nonce
     })
+    console.log(post);
     return post;
   } catch (error) {
     console.error('Error in transferTokens >', error);
@@ -76,6 +77,7 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
         post.confirmations = report.confirmations;
         post.refutations = report.refutations;
       }
+      console.log(_post);
       posts.push(_post);
     }
     console.log(address);
