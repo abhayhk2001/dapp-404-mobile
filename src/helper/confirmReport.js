@@ -1,4 +1,4 @@
-const { startLoading, stopLoading } = require("./loader");
+// const { startLoading, stopLoading } = require("./loader");
 
 const confirmReport = async (contract, Provider, id, address) => {
     try {
@@ -8,7 +8,7 @@ const confirmReport = async (contract, Provider, id, address) => {
         console.log(nonce);
         const _post = contract.methods.confirmReport(id);
         // await _post.call();
-        _post.send({
+        let res = await _post.send({
         from:address,
         gas:10000000,
         nonce
@@ -17,7 +17,7 @@ const confirmReport = async (contract, Provider, id, address) => {
             console.log(res);
             // stopLoading();
         });
-        console.log("Here");
+        console.log(res);
     } catch (error) {
         console.error('Error while confirming report >', error);
         // stopLoading();

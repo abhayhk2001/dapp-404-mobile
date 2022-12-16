@@ -12,12 +12,19 @@ const Profile = ({}) => {
     username: "abhayhk",
   });
   const { account } = useContext(ContractContext);
-  fetch(`${backendURL}/profile/${account}`).then((data) => {
-    data.json().then((data) => console.log(data) /*must set username & data here*/);
-  });
-  fetch(`${backendURL}/post/getuserposts/${account}`).then((data) =>
-    data.json().then((data) => console.log())
-  );
+  useEffect(() => {
+    fetch(`${backendURL}/profile/${account}`).then((data) => {
+      data.json().then(
+        (data) => {
+          console.log(data);
+          setData(data);
+        } /*must set username & data here*/
+      );
+    });
+    fetch(`${backendURL}/post/getuserposts/${account}`).then((data) =>
+      data.json().then((data) => console.log())
+    );
+  },[]);
 
   function getInitials(name) {
     return name

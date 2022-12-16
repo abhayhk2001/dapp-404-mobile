@@ -20,7 +20,9 @@ const ReportPost = ({ id , title, confirmations, refutations }) => {
 				 }} >
 					Confirm
 				</Button>
-				<Button type="solid" color={theme.darkColors.error} onPress={() => { }} >
+				<Button type="solid" color={theme.darkColors.error} onPress={() => {
+					refuteReport(backendContract,backendProvider, id, account)
+				 }} >
 					Refute
 				</Button>
 				<Text style={{ color: theme.darkColors.white, fontSize: 20 }}>{refutations}</Text>
