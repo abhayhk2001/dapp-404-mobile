@@ -6,5 +6,8 @@ import NewPost from "./NewPost";
 import Profile from "./Profile";
 import Signup from "./Signup";
 import NewsLang from "./NewsLang"
+import ConfirmReportPost from "./ConfirmReportPost";
+import ReportNewsLang from "./ReportNewsLang";
+import NewReportPost from "./NewReportPost";
 
-export { ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang };
+export { ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang, ConfirmReportPost, ReportNewsLang, NewReportPost };

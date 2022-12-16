@@ -9,11 +9,13 @@ import { Icon } from "@rneui/base";
 import { PostContext } from "./src/context/PostContext";
 import { ContractProvider } from "./src/context/ContractContext";
 import { AuthContext } from "./src/context/AuthContext";
+import { ReportPostContext } from "./src/context/ReportPostContext";
+
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
 import "./global"
 import {
-  ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang
+  ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang, ConfirmReportPost, ReportNewsLang, NewReportPost
 } from "./src/screens/allScreens";
 
 
@@ -61,13 +63,19 @@ function NewPostStackScreen() {
 }
 
 function DashboardStackScreen() {
+  const [postData, setPostData] = useState({})
   return (
-    <DashboardStack.Navigator screenOptions={{
-      header: props => <NavigationBar {...props} />,
-    }}>
-      <DashboardStack.Screen name="Home" component={Dashboard} />
-      <DashboardStack.Screen name="Maximised" component={Maximised} />
-    </DashboardStack.Navigator>
+    <ReportPostContext.Provider value={{ postData, setPostData }}>
+      <DashboardStack.Navigator screenOptions={{
+        header: props => <NavigationBar {...props} />,
+      }}>
+        <DashboardStack.Screen name="Home" component={Dashboard} />
+        <DashboardStack.Screen name="Maximised" component={Maximised} />
+        <DashboardStack.Screen name="New Report Post" component={NewReportPost} />
+        <DashboardStack.Screen name="Confirm Post" component={ConfirmReportPost} />
+        <DashboardStack.Screen name="News Lang" component={ReportNewsLang} />
+      </DashboardStack.Navigator>
+    </ReportPostContext.Provider>
   );
 }
 

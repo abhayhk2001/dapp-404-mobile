@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Card, Icon } from "@rneui/base";
 import theme from '../static/theme';
+import { ReportPostContext } from '../context/ReportPostContext';
 
 import Advertisment from "../components/Ad"
 
 
 const Post = ({ title, description, navigation, truthRating, truth = true, ad, img }) => {
-	const [seeLabels, setSeeLabels] = useState(false)
-	console.log("image", img)
+	const { setPostData } = useContext(ReportPostContext)
 	return (
 		<View >
 			<Card containerStyle={{
@@ -18,12 +18,24 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 				backgroundColor: theme.darkColors.primary,
 				borderWidth: 0
 			}}>
-				<TouchableOpacity onPress={() => navigation.navigate('Maximised', {
-					title: title,
-					description: description,
-					tags: [],
-					truthPercentage: truthRating
-				})}>
+				<TouchableOpacity onPress={() => {
+					setPostData({
+
+						title: title,
+						description: description,
+						truthPercentage: truthRating,
+						tagID: 0,
+						tagName: "",
+						originPostInfo: {
+							id: 0,
+							title: title,
+							description: description,
+							truthPercentage: truthRating,
+							tagID: 0,
+						}
+					})
+					navigation.navigate('Maximised')
+				}}>
 					<Card.Title style={{ fontSize: 20, color: "white", }}>{title}</Card.Title>
 				</TouchableOpacity>
 				<Card.Divider />

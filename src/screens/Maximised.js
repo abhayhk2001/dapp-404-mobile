@@ -1,16 +1,18 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
+import { ReportPostContext } from '../context/ReportPostContext'
 
-const Maximised = ({ route }) => {
-	const { title, description, truthPercentage } = route.params
+const Maximised = ({ navigation }) => {
+	const { postData } = useContext(ReportPostContext)
+	const { title, description, truthPercentage } = postData
 	return (
 		<View style={styles.container}>
 			<Text style={styles.header}>{title}</Text>
 			<Text style={styles.text}>{description}</Text>
 			<View style={styles.options}>
-				<View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+				<View style={{ paddingHorizontal: 20, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30 }}>
 					<View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
 						<Icon
 							color={theme.darkColors.secondary}
@@ -22,7 +24,6 @@ const Maximised = ({ route }) => {
 					</View>
 					<View style={{
 						height: "100%",
-						// flex: 1
 					}}>
 						<Text style={{
 							fontSize: 23,
@@ -34,7 +35,9 @@ const Maximised = ({ route }) => {
 						</Text>
 					</View>
 				</View>
-				<Button type="solid" color={theme.darkColors.error}>
+				<Button type="solid" color={theme.darkColors.error} onPress={() => {
+					navigation.navigate("New Report Post")
+				}}  >
 					Report Post
 				</Button>
 			</View>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
 	},
 	options: {
 		display: 'flex',
-		marginTop: 20
+		marginTop: 40
 	}
 })
 

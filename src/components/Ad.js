@@ -9,14 +9,12 @@ const Post = ({ ad }) => {
 	const title = ad[3]
 	const img_url = JSON.parse(ad[4]).img
 	const url = JSON.parse(ad[4]).url
-	console.log(img_url, url)
 
 	const [width, setWidth] = useState(0)
 	const [height, setHeight] = useState(0)
 
 	useEffect(() => {
 		Image.getSize(img_url, (w, h) => {
-			console.log(w, h)
 			if (w > 325) {
 				h = h / w * 325
 				w = 325
@@ -42,20 +40,18 @@ const Post = ({ ad }) => {
 						Alert.alert(`Don't know how to open this URL: ${url}`);
 					}
 				}}>
-					<Card.Title style={{ fontSize: 20, color: "white", }}>{title + " (Ad)"}</Card.Title>
+					<View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						<Image
+							style={{
+								width: width,
+								height: height,
+							}}
+							source={{
+								uri: img_url,
+							}}
+						/>
+					</View>
 				</TouchableOpacity>
-				<Card.Divider />
-				<View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-					<Image
-						style={{
-							width: width,
-							height: height,
-						}}
-						source={{
-							uri: img_url,
-						}}
-					/>
-				</View>
 			</Card>
 		</View>
 	)

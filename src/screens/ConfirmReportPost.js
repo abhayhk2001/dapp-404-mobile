@@ -2,16 +2,16 @@ import { View, Text, StyleSheet, ScrollView, TextInput, Alert } from 'react-nati
 import React, { useContext, useState } from 'react'
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
-import { PostContext } from '../context/PostContext'
+import { ReportPostContext } from '../context/ReportPostContext'
 import { ContractContext } from '../context/ContractContext'
 import postToBlockchain from '../helper/postToBlockchain'
 import getTruthRating from '../helper/getTruthRating'
 
 
 const ConfirmPost = ({ navigation }) => {
-	const { postData } = useContext(PostContext)
+	const { postData } = useContext(ReportPostContext)
 	const [isLoading, setIsLoading] = useState(false)
-	const { title, description, tagID, newslang, tagName } = postData
+	const { title, description, tagID, newslang, tagName, originPostInfo } = postData
 	const { backendContract, backendProvider, account } = useContext(ContractContext);
 	let headingInNewLangauge = [newslang?.subject, newslang?.object, newslang?.sentence].join(" ")
 	return (
