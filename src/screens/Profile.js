@@ -8,8 +8,7 @@ import { backendURL } from "../utils/constants";
 import { ContractContext } from "../context/ContractContext";
 const Profile = ({}) => {
   const [data, setData] = useState({
-    name: "Abhay H Kashyap",
-    username: "abhayhk",
+    name: "",
   });
   const { account } = useContext(ContractContext);
   useEffect(() => {
@@ -17,6 +16,7 @@ const Profile = ({}) => {
       data.json().then(
         (data) => {
           console.log(data);
+          setInitials(getInitials(data.name));
           setData(data);
         } /*must set username & data here*/
       );
@@ -24,7 +24,7 @@ const Profile = ({}) => {
     fetch(`${backendURL}/post/getuserposts/${account}`).then((data) =>
       data.json().then((data) => console.log())
     );
-  },[]);
+  }, []);
 
   function getInitials(name) {
     return name
@@ -40,7 +40,7 @@ const Profile = ({}) => {
     let randColor = randomNumber.padStart(6, 0);
     return `#${randColor.toUpperCase()}`;
   }
-  const [initials, setInitials] = useState(getInitials(data.name));
+  const [initials, setInitials] = useState("");
   const [bgColor, setBgColor] = useState(generateRandomColor());
 
   return (
@@ -69,20 +69,22 @@ const Profile = ({}) => {
           justifyContent: "center",
         }}
       >
-        <Text style={styles.name}>Hi, {data.username}</Text>
+        <Text style={styles.name}>Hi, {data.name}</Text>
         <Options
           list={[
-            { name: "Name: Abhay H Kashyap" },
-            { name: "a" },
-            { name: "a" },
+            { name: "Name: " + data?.name },
+            { name: "Email: " + data?.email },
           ]}
           name={"Personal Details"}
         />
         <Options
           list={[
-            { name: "Name: Abhay H Kashyap" },
-            { name: "a" },
-            { name: "a" },
+            { name: "Public ID: " + data?.public_id },
+            {
+              name:
+                "Account Created on: " +
+                new Date(data.creation_date).toDateString(),
+            },
           ]}
           name={"Account Details"}
         />
@@ -97,7 +99,7 @@ function Options({ list, name }) {
     <ListItem.Accordion
       containerStyle={{
         marginTop: 30,
-        backgroundColor: "white",
+        backgroundColor: theme.darkColors.secondary,
         borderRadius: 30,
       }}
       content={
@@ -105,7 +107,7 @@ function Options({ list, name }) {
           style={{
             width: "70%",
             paddingLeft: 20,
-            backgroundColor: "white",
+            backgroundColor: theme.darkColors.secondary,
           }}
         >
           <ListItem.Title
@@ -121,8 +123,12 @@ function Options({ list, name }) {
       }}
     >
       {list.map((l, i) => (
-        <ListItem key={i} bottomDivider containerStyle={{ width: 325 }}>
-          <ListItem.Title>{l.name}</ListItem.Title>
+        <ListItem key={i} containerStyle={{ width: 325 }}>
+          <ListItem.Title
+            style={{ color: theme.darkColors.white, fontSize: 20 }}
+          >
+            {l.name}
+          </ListItem.Title>
         </ListItem>
       ))}
     </ListItem.Accordion>
