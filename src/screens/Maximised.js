@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet } from 'react-native'
+import { ScrollView, Text, StyleSheet, View } from 'react-native'
 import React, { useContext } from 'react'
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
 	},
 	options: {
 		display: 'flex',
-		marginTop: 40
+		marginTop: 40,
+		marginBottom: 30
 	}
 })
 
