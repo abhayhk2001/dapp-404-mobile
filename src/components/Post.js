@@ -1,14 +1,36 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Card, Icon } from "@rneui/base";
-import theme from '../static/theme';
+
 import { ReportPostContext } from '../context/ReportPostContext';
+import { ContractContext } from '../context/ContractContext';
 
+import theme from '../static/theme';
 import Advertisment from "../components/Ad"
+import ReportPost from './ReportPost';
+import getPostByID from '../helper/getPostsByID';
+import report_posts from '../assets/posts.json'
 
 
-const Post = ({ title, description, navigation, truthRating, truth = true, ad, img, postID, tag, views }) => {
+const Post = ({ title, description, navigation, truthRating, truth = true, ad, img, postID, tag, views, reportIDs }) => {
 	const { setPostData } = useContext(ReportPostContext)
+	const [reportsVisible, setReportsVisible] = useState(true)
+	const [reports, setReports] = useState([])
+	const { backendContract } = useContext(ContractContext);
+	useEffect(() => {
+		if (true) {
+			// if (reportIDs && reportIDs.length != 0) {
+			console.log("first")
+			let tags = [[0, 1]]
+			getPostByID(backendContract, tags)
+				.then((_posts) => {
+					console.log("second")
+					setReports(_posts);
+				})
+				.catch((err) => { console.log(err, userToken) });
+		}
+	}, [])
+
 	return (
 		<View >
 			<Card containerStyle={{
@@ -51,7 +73,7 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 				<Card.Divider />
 				<View style={{
 					marginHorizontal: 30,
-					flexDirection: "row", justifyContent: "space-between"
+					flexDirection: "row", justifyContent: "space-between", marginBottom: 15
 				}}>
 					<TouchableOpacity onPress={() => { }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 						<Icon
@@ -84,6 +106,14 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 						/>
 					</TouchableOpacity>
 				</View>
+				{reportsVisible ? (
+					<>
+						<Card.Divider /><View style={{ paddingHorizontal: 10 }}>
+							<Text style={{ marginBottom: 10 }}>Reported By</Text>
+							{report_posts.map((report) => (
+								<ReportPost title={report.title} />
+							))}
+						</View></>) : <></>}
 			</Card>
 			{ad ? <Advertisment
 				ad={ad}

@@ -6,7 +6,6 @@ import theme from '../static/theme';
 
 
 const Post = ({ ad }) => {
-	const title = ad[3]
 	const img_url = JSON.parse(ad[4]).img
 	const url = JSON.parse(ad[4]).url
 
@@ -22,7 +21,7 @@ const Post = ({ ad }) => {
 			setHeight(h)
 			setWidth(w)
 		})
-	})
+	}, [])
 	return (
 		<View >
 			<Card containerStyle={{

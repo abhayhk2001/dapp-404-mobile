@@ -20,7 +20,7 @@ const NewPost = ({ navigation }) => {
 		axios.get(`${backendURL}/tags`).then((res) => {
 			setTags(res.data)
 		})
-	})
+	}, [])
 
 	return (
 		<ScrollView style={styles.container}>

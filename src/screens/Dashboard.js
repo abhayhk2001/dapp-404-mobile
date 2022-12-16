@@ -54,6 +54,7 @@ function Dashboard({ navigation }) {
 				tag={item.tag}
 				ad={item.ad}
 				img={item.img}
+				reportIDs={item.reportIDs}
 			/>
 		);
 	};
