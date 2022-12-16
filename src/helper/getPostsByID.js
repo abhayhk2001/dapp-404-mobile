@@ -1,3 +1,5 @@
+import { backendURL } from "../utils/constants";
+
 const rpcCallForTransaction = async (contract, tag, id) => {
     try {
       console.log(`Performing RPC`, id, tag);
@@ -11,10 +13,10 @@ const rpcCallForTransaction = async (contract, tag, id) => {
   };
 
 const getPostByID = async (Contract, tags) => {
-    const tag_list_json = await fetch("http://localhost:4000/tags");
+    const tag_list_json = await fetch(`${backendURL}/tags`);
     const tag_list = await tag_list_json.json();
     let posts = []
-    console.log(tags)
+    console.log(tags) // [ [0,1]]
     for(let i=0; i<tags.length; i++){
         let tag = tags[i];
         let post = await rpcCallForTransaction( Contract, tag[1], tag[0]);

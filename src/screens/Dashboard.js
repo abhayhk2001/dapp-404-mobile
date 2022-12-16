@@ -20,6 +20,7 @@ function Dashboard({ navigation }) {
 	const [refresing, setRefreshing] = useState(true)
 
 	const getPosts = () => {
+		setIsLoading(true)
 		getUserTags(userToken)
 			.then((tags) => {
 				tags = tags.map((tag) => { return tag["id"] });
@@ -36,7 +37,6 @@ function Dashboard({ navigation }) {
 	}
 
 	useEffect(() => {
-		setIsLoading(true)
 		getPosts()
 	}, [])
 

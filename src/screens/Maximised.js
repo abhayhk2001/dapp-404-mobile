@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet, View } from 'react-native'
+import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import theme from '../static/theme'
 import { Button, Icon } from '@rneui/base'
@@ -6,7 +6,7 @@ import { ReportPostContext } from '../context/ReportPostContext'
 
 const Maximised = ({ navigation }) => {
 	const { postData } = useContext(ReportPostContext)
-	const { title, description, truthPercentage, tagName } = postData
+	const { title, description, truthPercentage, tagName, views } = postData
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.header}>{title}</Text>
@@ -20,7 +20,7 @@ const Maximised = ({ navigation }) => {
 							size={30}
 							type="material"
 						/>
-						<Text style={{ color: theme.darkColors.white, }}> Views 123</Text>
+						<Text style={{ color: theme.darkColors.white, }}> Views {views}</Text>
 					</View>
 
 					<View style={{
