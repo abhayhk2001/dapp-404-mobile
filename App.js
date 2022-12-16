@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { View, Text } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ThemeProvider } from '@rneui/themed';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ThemeProvider } from "@rneui/themed";
 import { Icon } from "@rneui/base";
 
 import { PostContext } from "./src/context/PostContext";
@@ -13,11 +13,20 @@ import { ReportPostContext } from "./src/context/ReportPostContext";
 
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
-import "./global"
+import "./global";
 import {
-  ConfirmPost, Dashboard, Login, Maximised, NewPost, Profile, Signup, NewsLang, ConfirmReportPost, ReportNewsLang, NewReportPost
+  ConfirmPost,
+  Dashboard,
+  Login,
+  Maximised,
+  NewPost,
+  Profile,
+  Signup,
+  NewsLang,
+  ConfirmReportPost,
+  ReportNewsLang,
+  NewReportPost,
 } from "./src/screens/allScreens";
-
 
 const AuthStack = createNativeStackNavigator();
 const NewPostStack = createNativeStackNavigator();
@@ -35,10 +44,10 @@ const AuthStackScreen = () => (
       }}
     />
     <AuthStack.Screen
-      name="Sign In"
+      name="Sign Up"
       component={Signup}
       options={{
-        title: "Sign In",
+        title: "Sign Up",
         headerStyle: {
           backgroundColor: "#40d1ff",
         },
@@ -48,12 +57,14 @@ const AuthStackScreen = () => (
 );
 
 function NewPostStackScreen() {
-  const [postData, setPostData] = useState({})
+  const [postData, setPostData] = useState({});
   return (
     <PostContext.Provider value={{ postData, setPostData }}>
-      <NewPostStack.Navigator screenOptions={{
-        header: props => <NavigationBar {...props} />,
-      }}>
+      <NewPostStack.Navigator
+        screenOptions={{
+          header: (props) => <NavigationBar {...props} />,
+        }}
+      >
         <NewPostStack.Screen name="NewPost" component={NewPost} />
         <NewPostStack.Screen name="ConfirmPost" component={ConfirmPost} />
         <NewPostStack.Screen name="NewsLang" component={NewsLang} />
@@ -63,17 +74,28 @@ function NewPostStackScreen() {
 }
 
 function DashboardStackScreen() {
-  const [postData, setPostData] = useState({})
+  const [postData, setPostData] = useState({});
   return (
     <ReportPostContext.Provider value={{ postData, setPostData }}>
-      <DashboardStack.Navigator screenOptions={{
-        header: props => <NavigationBar {...props} />,
-      }}>
+      <DashboardStack.Navigator
+        screenOptions={{
+          header: (props) => <NavigationBar {...props} />,
+        }}
+      >
         <DashboardStack.Screen name="Home" component={Dashboard} />
         <DashboardStack.Screen name="Maximised" component={Maximised} />
-        <DashboardStack.Screen name="New Report Post" component={NewReportPost} />
-        <DashboardStack.Screen name="Confirm Report Post" component={ConfirmReportPost} />
-        <DashboardStack.Screen name="Report News Lang" component={ReportNewsLang} />
+        <DashboardStack.Screen
+          name="New Report Post"
+          component={NewReportPost}
+        />
+        <DashboardStack.Screen
+          name="Confirm Report Post"
+          component={ConfirmReportPost}
+        />
+        <DashboardStack.Screen
+          name="Report News Lang"
+          component={ReportNewsLang}
+        />
       </DashboardStack.Navigator>
     </ReportPostContext.Provider>
   );
@@ -81,9 +103,11 @@ function DashboardStackScreen() {
 
 function ProfileStackScreen() {
   return (
-    <ProfileStack.Navigator screenOptions={{
-      header: props => <NavigationBar {...props} />,
-    }}>
+    <ProfileStack.Navigator
+      screenOptions={{
+        header: (props) => <NavigationBar {...props} />,
+      }}
+    >
       <ProfileStack.Screen name="MyProfile" component={Profile} />
     </ProfileStack.Navigator>
   );
@@ -91,51 +115,71 @@ function ProfileStackScreen() {
 
 function MainTabScreen() {
   return (
-    <Tab.Navigator initialRouteName="Dashboard" screenOptions={{
-      tabBarShowLabel: false,
-      headerShown: false,
-      tabBarStyle: {
-        backgroundColor: theme.darkColors.background,
-        height: 60,
-        marginTop: -20,
-        borderWidth: 0,
-        borderColor: theme.darkColors.primary,
-      }
-    }} >
-      <Tab.Screen name="NewPostScreen" component={NewPostStackScreen} options={{
-        tabBarIcon: (() => {
-          return <Icon
-            color={theme.darkColors.secondary}
-            name="add"
-            size={30}
-            type="material"
-          />
-        })
-      }} />
-      <Tab.Screen name="Dashboard" component={DashboardStackScreen} options={{
-        tabBarIcon: (() => {
-          return <Icon
-            color={theme.darkColors.secondary}
-            name="dashboard"
-            size={30}
-            type="material"
-          />
-        })
-      }} />
-      <Tab.Screen name="Profile" component={ProfileStackScreen} options={{
-        tabBarIcon: (() => {
-          return <Icon
-            color={theme.darkColors.secondary}
-            name="person"
-            size={30}
-            type="material"
-          />
-        })
-      }} />
+    <Tab.Navigator
+      initialRouteName="Dashboard"
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.darkColors.background,
+          height: 60,
+          marginTop: -20,
+          borderWidth: 0,
+          borderColor: theme.darkColors.primary,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="NewPostScreen"
+        component={NewPostStackScreen}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Icon
+                color={theme.darkColors.secondary}
+                name="add"
+                size={30}
+                type="material"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardStackScreen}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Icon
+                color={theme.darkColors.secondary}
+                name="dashboard"
+                size={30}
+                type="material"
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStackScreen}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Icon
+                color={theme.darkColors.secondary}
+                name="person"
+                size={30}
+                type="material"
+              />
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }
-
 
 const RootStack = createNativeStackNavigator();
 const RootStackScreen = ({ userToken }) => (
@@ -179,10 +223,10 @@ export default function App() {
         setUserToken(null);
       },
       isLoggedIn: () => {
-        return true
+        return true;
       },
       userToken,
-    }
+    };
   });
 
   useEffect(() => {
@@ -193,20 +237,26 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <View style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Text>Loading</Text>
       </View>
     );
   }
   return (
     <AuthContext.Provider value={authContext}>
-      < ContractProvider >
+      <ContractProvider>
         <ThemeProvider theme={theme}>
           <NavigationContainer>
             <RootStackScreen userToken={userToken} />
           </NavigationContainer>
         </ThemeProvider>
-      </ContractProvider >
+      </ContractProvider>
     </AuthContext.Provider>
   );
 }

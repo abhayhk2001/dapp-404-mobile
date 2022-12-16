@@ -1,43 +1,57 @@
-import React, { useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import theme from '../static/theme';
-import { Button } from '@rneui/base';
-import { AuthContext } from '../context/AuthContext';
-import { ContractContext } from '../context/ContractContext';
-const Login = (props) => {
-	const { login } = useContext(AuthContext);
-	const {login : _login } = useContext(ContractContext);
-	const onPress = () => {
-		_login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
-		login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
-	}
-	return (
-		<View style={styles.container}>
-			<Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>Welcome Back</Text>
-			<Button title='Connect to Wallet' buttonStyle={styles.button} onPress={() => {
-				onPress();
-			}} />
-			<View style={{ flexDirection: 'row', marginTop: 100 }}>
-				{/* <Text style={{ color: "white", marginBottom: 20, fontSize: 10 }}>New Here ...</Text> */}
-				<Button title='Sign Up' buttonStyle={{}} />
-			</View>
-		</View>
-	);
-}
+import React, { useContext } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import theme from "../static/theme";
+import { Button } from "@rneui/base";
+import { AuthContext } from "../context/AuthContext";
+import { ContractContext } from "../context/ContractContext";
+const Login = ({ navigation }) => {
+  const { login } = useContext(AuthContext);
+  const { login: _login } = useContext(ContractContext);
+  const onPress = () => {
+    _login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
+    login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
+  };
+  return (
+    <View style={styles.container}>
+      <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
+        Welcome Back
+      </Text>
+      <Button
+        title="Connect to Wallet"
+        buttonStyle={styles.button}
+        onPress={() => {
+          onPress();
+        }}
+      />
+      <View style={{ flexDirection: "row", marginTop: 70 }}>
+        <Text style={{ color: "white", marginRight: 20, fontSize: 30 }}>
+          New Here ...
+        </Text>
+        <Button
+          title="Sign Up"
+          buttonStyle={{}}
+          onPress={() => {
+            navigation.navigate("Sign Up");
+          }}
+        />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: theme.darkColors.primary,
-	},
-	button: {
-		backgroundColor: theme.darkColors.secondary,
-		height: 50,
-		width: 200,
-		fontSize: 40
-	}
-})
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.darkColors.primary,
+  },
+  button: {
+    backgroundColor: theme.darkColors.secondary,
+    height: 50,
+    width: 200,
+    fontSize: 40,
+  },
+});
 
 export default Login;
