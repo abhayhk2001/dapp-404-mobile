@@ -26,6 +26,7 @@ import {
   ConfirmReportPost,
   ReportNewsLang,
   NewReportPost,
+  MyPosts,
 } from "./src/screens/allScreens";
 
 const AuthStack = createNativeStackNavigator();
@@ -109,6 +110,7 @@ function ProfileStackScreen() {
       }}
     >
       <ProfileStack.Screen name="MyProfile" component={Profile} />
+      <ProfileStack.Screen name="MyPosts" component={MyPosts} />
     </ProfileStack.Navigator>
   );
 }

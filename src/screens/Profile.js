@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import theme from "../static/theme";
 import { ListItem } from "@rneui/themed";
+import { Button } from "@rneui/base";
 
 import { Avatar } from "@rneui/base";
 import { backendURL } from "../utils/constants";
 import { ContractContext } from "../context/ContractContext";
-const Profile = ({}) => {
+const Profile = ({ navigation }) => {
   const [data, setData] = useState({
     name: "",
   });
@@ -46,6 +47,7 @@ const Profile = ({}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}></View>
+
       <Avatar
         size={64}
         rounded
@@ -70,6 +72,7 @@ const Profile = ({}) => {
         }}
       >
         <Text style={styles.name}>Hi, {data.name}</Text>
+
         <Options
           list={[
             { name: "Name: " + data?.name },
@@ -88,6 +91,16 @@ const Profile = ({}) => {
           ]}
           name={"Account Details"}
         />
+        <Button
+          type="solid"
+          color={theme.darkColors.secondary}
+          onPress={() => {
+            navigation.navigate("MyPosts");
+          }}
+          containerStyle={{ marginTop: 30, width: 150 }}
+        >
+          My Posts
+        </Button>
       </ScrollView>
     </ScrollView>
   );

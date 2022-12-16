@@ -1,22 +1,44 @@
 [
   {
     "ad": [
-      "3",
+      "1",
       "0xbe26757C4e5F124200830E98d5f13D1f95FceF5e",
-      "2",
-      "Qatar Airways",
-      "{\"img\":\"https://d12eu00glpdtk2.cloudfront.net/public/images/local/_760x500_clip_center-center_none/Qatar-Airways-Holidays-announces-launch-of-FIFA-World-Cup-Qatar-2022%E2%84%A2-Fan-Travel-Packages_210929_134011.jpg\",\"url\":\"https://www.qatarairways.com/en-in/homepage.html\"}",
+      "1",
+      "Coca Cola",
+      "{\"img\":\"https://assets-cdn.audionetwork.com/usr/common/coca%20cola%20ads%20(4).png\", \"url\":\"https://www.coca-cola.com/\"}",
       "1671165476",
-      "204",
-      "596"
+      "6012",
+      "638"
     ],
-    "description": "The Ukrainian army says it has made major gains over the last day around Kherson, after Russia said it was withdrawing from the southern city. Ukrainian troops say they have taken back the key town of Snihurivka, 50km (30 miles) to the north of Kherson.",
-    "id": 0,
-    "interactions": "18",
-    "rating": 90.9,
+    "description": "Subhash Chandra Bose was the PM of undivided India",
+    "id": 3,
+    "interactions": "25",
+    "rating": 15.34,
+    "reportIDs": ["6", "7"],
+    "tag": { "id": 0, "name": "Politics" },
+    "title": "Subhash Chandra Bose was the PM of undivided India",
+    "truth": true
+  },
+  {
+    "ad": "",
+    "description": "Pakistan face England in ICC world cup finals on Sunday 13th November",
+    "id": 1,
+    "interactions": "29",
+    "rating": 88.88,
     "reportIDs": [],
-    "tags": [],
-    "title": "Ukraine war: Kyiv claims major gains as Russia exits Kherson",
+    "tag": { "id": 1, "name": "Sports" },
+    "title": "Pakistan face England in ICC world cup finals",
+    "truth": true
+  },
+  {
+    "ad": "",
+    "description": "Twitter's relaunched premium service — which grants blue-check “verification” labels to anyone willing to pay $8 a month — was unavailable Friday after the social media platform was flooded by a wave of imposter accounts approved by Twitter.",
+    "id": 0,
+    "interactions": "31",
+    "rating": 94.78,
+    "reportIDs": [],
+    "tag": { "id": 4, "name": "Technology" },
+    "title": "Twitter Blue signups unavailable after raft of fake accounts",
     "truth": true
   },
   {
@@ -27,16 +49,36 @@
       "Qatar Airways",
       "{\"img\":\"https://d12eu00glpdtk2.cloudfront.net/public/images/local/_760x500_clip_center-center_none/Qatar-Airways-Holidays-announces-launch-of-FIFA-World-Cup-Qatar-2022%E2%84%A2-Fan-Travel-Packages_210929_134011.jpg\",\"url\":\"https://www.qatarairways.com/en-in/homepage.html\"}",
       "1671165476",
-      "204",
-      "596"
+      "209",
+      "591"
     ],
-    "description": "Pakistan face England in ICC world cup finals on Sunday 13th November",
-    "id": 1,
-    "interactions": "20",
-    "rating": 88.88,
+    "description": "The Ukrainian army says it has made major gains over the last day around Kherson, after Russia said it was withdrawing from the southern city.Ukrainian troops say they have taken back the key town of Snihurivka, 50km (30 miles) to the north of Kherson.",
+    "id": 0,
+    "interactions": "23",
+    "rating": 90.9,
     "reportIDs": [],
-    "tags": [],
-    "title": "Pakistan face England in ICC world cup finals",
+    "tag": { "id": 0, "name": "Politics" },
+    "title": "Ukraine war: Kyiv claims major gains as Russia exits Kherson",
+    "truth": true
+  },
+  {
+    "ad": [
+      "0",
+      "0xbe26757C4e5F124200830E98d5f13D1f95FceF5e",
+      "0",
+      "Swiggy",
+      "{\"img\":\"https://newspaperads.ads2publish.com/wp-content/uploads/2017/10/swiggy-food-delivery-app-enjoy-flat-40-off-ad-pune-times-28-10-2017.jpg\",\"url\":\"https://www.swiggy.com/\"}",
+      "1671165476",
+      "615",
+      "585"
+    ],
+    "description": "Stressing on multi-dimensional growth in Andhra Pradesh, Prime Minister Narendra Modi on Saturday said his government laid special stress on development of infrastructure in the country.Addressing a rally at Visakhapatnam, Modi said despite several countries facing problems, India had become a beacon of light and hope for the World. \"This has happened because India is making the policies and taking decisions keeping in mind the people of India,\" he said enumerating various pro-poor and pro-development decisions taken by his government. ",
+    "id": 1,
+    "interactions": "21",
+    "rating": 89.37,
+    "reportIDs": [],
+    "tag": { "id": 0, "name": "Politics" },
+    "title": "PM Narendra Modi stresses on multidimensional growth, lays foundation stones of multiple projects in Andhra Pradesh",
     "truth": true
   }
 ]

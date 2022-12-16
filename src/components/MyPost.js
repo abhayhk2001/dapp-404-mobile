@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Card, Icon } from "@rneui/base";
 
-import { ReportPostContext } from "../context/ReportPostContext";
+// import { ReportPostContext } from "../context/ReportPostContext";
 import { ContractContext } from "../context/ContractContext";
 
 import theme from "../static/theme";
-import Advertisment from "../components/Ad";
-import ReportPost from "./ReportPost";
+import MyReportPost from "./MyReportPost";
 import getPostByID from "../helper/getPostsByID";
 
 const Post = ({
@@ -23,7 +22,7 @@ const Post = ({
   views,
   reportIDs,
 }) => {
-  const { setPostData } = useContext(ReportPostContext);
+  // const { setPostData } = useContext(ReportPostContext);
   const [reportsVisible, setReportsVisible] = useState(false);
   const [reports, setReports] = useState([]);
   const { backendContract } = useContext(ContractContext);
@@ -58,24 +57,24 @@ const Post = ({
           onPress={() => {
             if (reportIDs.length > 0) setReportsVisible(!reportsVisible);
           }}
-          onLongPress={() => {
-            setPostData({
-              title: title,
-              description: description,
-              truthPercentage: truthRating,
-              tagID: tag.id,
-              tagName: tag.name,
-              originPostInfo: {
-                id: postID,
-                title: title,
-                description: description,
-                truthPercentage: truthRating,
-                tag: tag,
-              },
-              views,
-            });
-            navigation.navigate("Maximised");
-          }}
+          // onLongPress={() => {
+          //   setPostData({
+          //     title: title,
+          //     description: description,
+          //     truthPercentage: truthRating,
+          //     tagID: tag.id,
+          //     tagName: tag.name,
+          //     originPostInfo: {
+          //       id: postID,
+          //       title: title,
+          //       description: description,
+          //       truthPercentage: truthRating,
+          //       tag: tag,
+          //     },
+          //     views,
+          //   });
+          //   navigation.navigate("Maximised");
+          // }}
         >
           <Card.Title style={{ fontSize: 20, color: "white" }}>
             {title}
@@ -146,16 +145,7 @@ const Post = ({
             </Text>
           </View>
           <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Report", "Do you want to report Post : " + title, [
-                {
-                  text: "Report",
-                  onPress: () => {
-                    navigation.navigate("New Report Post");
-                  },
-                },
-              ]);
-            }}
+            onPress={() => {}}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -188,7 +178,7 @@ const Post = ({
                 Reported By
               </Text>
               {reports.map((report) => (
-                <ReportPost
+                <MyReportPost
                   key={report.id}
                   id={report.id}
                   title={report.title}
@@ -202,7 +192,6 @@ const Post = ({
           <></>
         )}
       </Card>
-      {ad ? <Advertisment ad={ad} /> : <></>}
     </View>
   );
 };
