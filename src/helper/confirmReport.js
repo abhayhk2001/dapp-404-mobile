@@ -3,11 +3,11 @@ const { startLoading, stopLoading } = require("./loader");
 const confirmReport = async (contract, Provider, id, address) => {
     try {
         console.log(`Performing RPC`);
-        startLoading();
+        // startLoading();
         let nonce = await Provider.eth.getTransactionCount(address);
-        console.log(id);
+        console.log(nonce);
         const _post = contract.methods.confirmReport(id);
-        console.log(_post)
+        // await _post.call();
         _post.send({
         from:address,
         gas:10000000,
@@ -15,11 +15,12 @@ const confirmReport = async (contract, Provider, id, address) => {
         }).then((res)=>{
             alert("Report confirmed");
             console.log(res);
-            stopLoading();
+            // stopLoading();
         });
+        console.log("Here");
     } catch (error) {
-        console.error('Error in transferTokens >', error);
-        stopLoading();
+        console.error('Error while confirming report >', error);
+        // stopLoading();
         return false;
     }
 };

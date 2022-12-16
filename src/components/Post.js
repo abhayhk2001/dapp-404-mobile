@@ -21,7 +21,9 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 		if (true) {
 			// if (reportIDs && reportIDs.length != 0) {
 			console.log("first")
-			let tags = [[0, 1]]
+			let tags = reportIDs.map((id)=>{
+				return [id,0];
+			})
 			getPostByID(backendContract, tags)
 				.then((_posts) => {
 					console.log("second")
@@ -111,8 +113,8 @@ const Post = ({ title, description, navigation, truthRating, truth = true, ad, i
 					<>
 						<Card.Divider /><View style={{ paddingHorizontal: 10 }}>
 							<Text style={{ marginBottom: 10 }}>Reported By</Text>
-							{report_posts.map((report) => (
-								<ReportPost title={report.title} />
+							{reports.map((report) => (
+								<ReportPost id={report.id} title={report.title} confirmations={report.confirmations} refutations = {report.refutations}/>
 							))}
 						</View></>) : <></>}
 			</Card>
