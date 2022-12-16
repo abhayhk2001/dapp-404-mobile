@@ -4,11 +4,14 @@ import theme from '../static/theme'
 import tags from '../assets/tags.json'
 import { Button, Icon } from '@rneui/base'
 import { PostContext } from '../context/PostContext'
-
+import { ContractContext } from '../context/ContractContext'
+import postToBlockchain from '../helper/postToBlockchain'
+import getTruthRating from '../helper/getTruthRating'
 const ConfirmPost = () => {
 	const { postData } = useContext(PostContext)
 	const { title, description, tag, newslang } = postData
-
+	const {backendContract, backendProvider, account } = useContext(ContractContext);
+	let newsLang = ""
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
@@ -34,7 +37,7 @@ const ConfirmPost = () => {
 				<Text style={{ color: theme.darkColors.white, marginLeft: 20, fontSize: 25 }}>{tags[tag - 1].name}</Text>
 			</View>
 			<Text style={{ fontSize: 30, color: theme.darkColors.white }}>
-				NewsLang: {newslang?.subject + newslang?.object + newslang?.sentence}
+				NewsLang: {newsLang = (newslang?.subject + newslang?.object + newslang?.sentence)}
 			</Text>
 			<View style={{ marginTop: 20, marginHorizontal: 30 }}>
 				<Button type="solid" color={theme.darkColors.secondary}
@@ -42,10 +45,14 @@ const ConfirmPost = () => {
 						fontSize: 25
 					}}
 					onPress={() => {
-						console.log(postData)
-					}}
+						getTruthRating(newsLang)
+						.then((truthRating)=>{
+							console.log(truthRating)
+							postToBlockchain(backendContract, backendProvider, account, newsLang, tag, title, description, truthRating);
+						})
+						}}
 				>
-					Post
+					Confirm and Post
 				</Button>
 			</View>
 		</ScrollView>

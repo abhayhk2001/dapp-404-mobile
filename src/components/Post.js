@@ -4,9 +4,8 @@ import { Card, Icon } from "@rneui/base";
 import theme from '../static/theme';
 
 
-const Post = ({ title, description, navigation, /*truthPercentage*/ }) => {
+const Post = ({ title, description, navigation, truthRating, truth = true }) => {
 	const [seeLabels, setSeeLabels] = useState(false)
-	const truthPercentage = 91.35
 	return (
 		<View >
 			<Card containerStyle={{
@@ -20,7 +19,7 @@ const Post = ({ title, description, navigation, /*truthPercentage*/ }) => {
 					title: title,
 					description: description,
 					tags: [],
-					truthPercentage: truthPercentage
+					truthPercentage: truthRating
 				})}>
 					<Card.Title style={{ fontSize: 20, color: "white", }}>{title}</Card.Title>
 				</TouchableOpacity>
@@ -56,9 +55,9 @@ const Post = ({ title, description, navigation, /*truthPercentage*/ }) => {
 							fontSize: 23,
 							paddingTop: 1,
 							fontWeight: "bold",
-							color: truthPercentage > 50 ? theme.darkColors.success : theme.darkColors.error
+							color: truthRating > 50 ? theme.darkColors.success : theme.darkColors.error
 						}}>
-							{truthPercentage}
+							{truthRating}
 						</Text>
 					</View>
 					<TouchableOpacity onPress={() => { }}>

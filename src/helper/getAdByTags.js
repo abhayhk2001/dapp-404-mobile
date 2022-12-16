@@ -1,19 +1,24 @@
 // import { ownerWallet, adContractAddress as contractAddress, private_key } from '../utils/constants'
-const rpcCallForTransaction = async ( contract, tags) => {
+const getAdByTag = async ( contract, Provider, tags, address) => {
     try {
       console.log(`Performing Ad RPC`);
-      let ad = await contract.methods.getRandAdByTag(tags).call();
-      return ad;
+      let ad = contract.methods.getRandAdByTag(tags);
+      let _ad = await ad.call();
+      let nonce = await Provider.eth.getTransactionCount(address);
+      console.log("From", address)
+      ad.send({
+        from:address,
+        gas:10000000,
+        nonce
+      }).then((res)=>{
+        console.log(res);
+      });
+      return _ad;
     } catch (error) {
-      console.error('Error in transferTokens >', error);
+      console.error('Error in ad query>', error);
       return false;
     }
-  };
+};
 
-const getAdByTag = async (Contract, tags, limit) => {
-         
-    tags = [0,1,2]
-    return await rpcCallForTransaction(Contract, tags);
-}
 
 export default getAdByTag;
