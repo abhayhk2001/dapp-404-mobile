@@ -76,7 +76,12 @@ const Post = ({
           //   navigation.navigate("Maximised");
           // }}
         >
-          <Card.Title style={{ fontSize: 20, color: "white" }}>
+          <Card.Title
+            style={{
+              fontSize: 20,
+              color: truth ? "white" : theme.darkColors.error,
+            }}
+          >
             {title}
           </Card.Title>
         </TouchableOpacity>
