@@ -169,6 +169,13 @@ const Post = ({
               {reportIDs.length}
             </Text>
           </TouchableOpacity>
+          <Button
+            type="solid"
+            color={theme.darkColors.error}
+            onPress={() => {}}
+          >
+            Withdraw
+          </Button>
         </View>
         {reportsVisible ? (
           <>

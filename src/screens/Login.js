@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "../static/theme";
 import { Button } from "@rneui/base";
@@ -11,11 +11,25 @@ const Login = ({ navigation }) => {
     _login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
     login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
   };
+
+  const [publicAddress, setPublicAddress] = useState("");
   return (
     <View style={styles.container}>
       <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
         Welcome back!
       </Text>
+      <View>
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textinput}
+          placeholder="Wallet Address"
+          placeholderTextColor={theme.darkColors.grey}
+          value={publicAddress}
+          onChangeText={(text) => {
+            setPublicAddress(text);
+          }}
+        />
+      </View>
       <Button
         title="Connect to Wallet"
         buttonStyle={styles.button}
@@ -30,7 +44,8 @@ const Login = ({ navigation }) => {
           }}
         >
           <Text style={{ color: "white", textAlign: "center", fontSize: 20 }}>
-            Don't have an account? <Text style={{color:theme.darkColors.secondary}}>Sign up</Text>
+            Don't have an account?{" "}
+            <Text style={{ color: theme.darkColors.secondary }}>Sign up</Text>
           </Text>
         </TouchableOpacity>
       </View>
@@ -50,6 +65,18 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     fontSize: 40,
+  },
+  textinput: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: theme.darkColors.grey,
+    padding: 10,
+    marginVertical: 3,
+    fontSize: 15,
+    color: theme.darkColors.grey,
   },
 });
 
