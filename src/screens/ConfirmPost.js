@@ -53,10 +53,10 @@ const ConfirmPost = ({ navigation }) => {
 					loading={isLoading}
 					onPress={() => {
 						setIsLoading(true)
-						// getTruthRating(headingInNewLangauge)
-						// 	.then((truthRating) => {
-						// 		postToBlockchain(backendContract, backendProvider, account, headingInNewLangauge, tagID, title, description, truthRating);
-						// 	})
+						getTruthRating(newslang)
+							.then((truthRating) => {
+								postToBlockchain(backendContract, backendProvider, account, newslang, tagID, title, description, truthRating);
+							})
 						setIsLoading(false);
 						Alert.alert("Submitted", "Post with the title " + title + ' is Submitted', [{
 							text: 'Move to Dashboard', onPress: () => {

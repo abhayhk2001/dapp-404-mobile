@@ -19,26 +19,38 @@ import getPostByID from "../helper/getPostsByID";
 function Dashboard({ navigation }) {
   //   const [posts, setPosts] = useState([]);
   const { userToken } = useContext(AuthContext);
-  const { backendContract, backendAdContract, backendProvider, account, userAccount } =
-    useContext(ContractContext);
+  const {
+    backendContract,
+    backendAdContract,
+    backendProvider,
+    account,
+    userAccount,
+  } = useContext(ContractContext);
   const [isLoading, setIsLoading] = useState(false);
   const [refresing, setRefreshing] = useState(false);
   const [posts, setPosts] = useState([]);
   const getPosts = () => {
     setIsLoading(true);
     setRefreshing(true);
+    let post_arr = [];
     fetch(`${backendURL}/post/getuserposts/${userAccount}`).then((data) => {
       data
         .json()
         .then((data) => {
           // console.log(data);
-          let tags = data
+          let tags = data;
           tags = tags.map((tag) => {
             return [tag["postid"], tag["tagid"]];
           });
           console.log(tags);
-          tags = tags.filter((tag)=> tag[1]!=="0")
-          getPostByID(backendContract, tags)
+          tags = tags.filter((tag) => tag[1] !== "0");
+          getPostByID(backendContract, tags, (post) => {
+            post_arr.push(post);
+            setIsLoading(true);
+            setPosts(post_arr);
+            setIsLoading(false);
+            setRefreshing(false);
+          })
             .then((_posts) => {
               console.log(_posts);
               setPosts(_posts);

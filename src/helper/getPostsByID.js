@@ -12,7 +12,7 @@ const rpcCallForTransaction = async (contract, tag, id) => {
     }
   };
 
-const getPostByID = async (Contract, tags) => {
+const getPostByID = async (Contract, tags , callback) => {
     const tag_list_json = await fetch(`${backendURL}/tags`);
     const tag_list = await tag_list_json.json();
     let posts = []
@@ -51,6 +51,8 @@ const getPostByID = async (Contract, tags) => {
             _post.refutations = report.refutations;
         }
         posts.push(_post);
+        if(callback)
+            callback(_post)
     }
     return posts;
 }

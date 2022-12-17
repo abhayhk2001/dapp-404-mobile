@@ -26,6 +26,7 @@ const Login = ({ navigation }) => {
       <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
         Welcome back!
       </Text>
+      <View>
       <TextInput
         secureTextEntry={true}
         style={styles.textinput}
@@ -35,7 +36,9 @@ const Login = ({ navigation }) => {
         onChangeText={(text) => {
           setPublicAddress(text);
         }}
-      />
+        />
+        </View>
+
       <Button
         title="Connect to Wallet"
         buttonStyle={styles.button}
