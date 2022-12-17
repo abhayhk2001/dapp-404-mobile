@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "checkmate-mobile",
-    "slug": "checkmate-mobile",
+    "slug": "dapp-404",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,8 +33,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "80949b2a-7cb2-44f4-a43b-76f4385a36f0"
+        "projectId": "d4ab09fc-f078-486d-b2e0-3d0dc9505c7a"
       }
-    }
+    },
+    "owner": "phalaksha"
   }
 }

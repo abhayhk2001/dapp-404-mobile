@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { View, Text } from "react-native";
+import { View, Text, LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -56,6 +56,8 @@ const AuthStackScreen = () => (
     />
   </AuthStack.Navigator>
 );
+
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 function NewPostStackScreen() {
   const [postData, setPostData] = useState({});
