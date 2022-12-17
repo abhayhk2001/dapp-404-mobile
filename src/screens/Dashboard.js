@@ -24,10 +24,14 @@ function Dashboard({ navigation }) {
 		getUserTags(userToken)
 			.then((tags) => {
 				tags = tags.map((tag) => { return tag["id"] });
-				getPostByTags(backendContract, backendAdContract, backendProvider, tags, 1, account)
+				getPostByTags(backendContract, backendAdContract, backendProvider, tags, 10, account, (post)=> {
+					setPosts([...posts, post]);
+					setIsLoading(false)
+					setRefreshing(false)
+				})
 					.then((_posts) => {
 						console.log(_posts)
-						setPosts(_posts);
+						// setPosts(_posts);
 						setIsLoading(false)
 						setRefreshing(false)
 					})

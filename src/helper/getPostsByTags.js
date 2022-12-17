@@ -23,7 +23,7 @@ const rpcCallForTransaction = async (contract, Provider, tag, address) => {
   }
 };
 
-const getPostByTags = async (Contract, adContract, Provider, tags, limit, address) => {
+const getPostByTags = async (Contract, adContract, Provider, tags, limit, address, callback) => {
   try {
     tags = [1, 2, 5]
     console.log(address)
@@ -79,6 +79,7 @@ const getPostByTags = async (Contract, adContract, Provider, tags, limit, addres
       }
       console.log(_post);
       posts.push(_post);
+      callback(_post);
     }
     console.log(address);
     return posts;
