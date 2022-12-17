@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, ScrollView, TextInput, Linking } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+  Linking,
+} from "react-native";
 import theme from "../static/theme";
 import { ListItem } from "@rneui/themed";
 import { Button } from "@rneui/base";
@@ -102,38 +109,48 @@ const Profile = ({ navigation }) => {
         >
           My Posts
         </Button>
-        <View style={{display:"flex", alignItems:"center", flexDirection:"row"}}>
-          <View>
-          <TextInput
-          style={styles.textinput}
-          placeholder="Amount"
-          placeholderTextColor={theme.darkColors.grey}
-          onChangeText={(text) => {
-            setAmount(text);
+        <View
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderWidth: 1,
+            borderColor: "white",
+            marginTop: 30,
+            padding: 20,
           }}
-          />
-          </View>
-        <Button
-          type="solid"
-          color={theme.darkColors.secondary}
-          onPress={async () => {
-            try{
-            const url = `https://metamask.app.link/send/pay-${userContractAddress}@80001?value=${parseInt(parseFloat(amount)*1e18)}`
-            console.log(url);
-            const supported = await Linking.canOpenURL(url);
-            if (supported) {
-              await Linking.openURL(url);
-            } else {
-              Alert.alert(`Don't know how to open this URL: ${url}`);
-            }
-          } catch(err) {
-            console.log(err)
-          }
-          }}
-          containerStyle={{ marginTop: 10, marginBottom:30, width: 150 }}
         >
-          Fund
-        </Button>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Enter Amount"
+            placeholderTextColor={theme.darkColors.grey}
+            onChangeText={(text) => {
+              setAmount(text);
+            }}
+          />
+          <Button
+            type="solid"
+            color={theme.darkColors.secondary}
+            onPress={async () => {
+              try {
+                const url = `https://metamask.app.link/send/pay-${userContractAddress}@80001?value=${parseInt(
+                  parseFloat(amount) * 1e18
+                )}`;
+                console.log(url);
+                const supported = await Linking.canOpenURL(url);
+                if (supported) {
+                  await Linking.openURL(url);
+                } else {
+                  Alert.alert(`Don't know how to open this URL: ${url}`);
+                }
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            containerStyle={{ marginTop: 10, marginBottom: 30, width: 150 }}
+          >
+            Fund
+          </Button>
         </View>
       </ScrollView>
     </ScrollView>
@@ -202,7 +219,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 1,
-    marginTop:10,
+    marginTop: 10,
     marginVertical: 3,
     fontSize: 20,
     color: theme.darkColors.grey,

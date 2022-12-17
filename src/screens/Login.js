@@ -18,7 +18,9 @@ const Login = ({ navigation }) => {
     login(publicAddress.toLowerCase());
   };
 
-  const [publicAddress, setPublicAddress] = useState("");
+  const [publicAddress, setPublicAddress] = useState(
+    "0xbe26757C4e5F124200830E98d5f13D1f95FceF5e"
+  );
   return (
     <View style={styles.container}>
       <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     borderBottomWidth: 1,
-    marginBottom:10,
+    marginBottom: 10,
     borderColor: theme.darkColors.grey,
     padding: 10,
     marginVertical: 3,

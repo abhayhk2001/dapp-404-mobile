@@ -120,7 +120,10 @@ function MainTabScreen() {
     <Tab.Navigator
       initialRouteName="Dashboard"
       screenOptions={{
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
         headerShown: false,
         tabBarStyle: {
           backgroundColor: theme.darkColors.background,
@@ -132,15 +135,17 @@ function MainTabScreen() {
       }}
     >
       <Tab.Screen
-        name="NewPostScreen"
+        name="New"
         component={NewPostStackScreen}
         options={{
-          tabBarIcon: () => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Icon
-                color={theme.darkColors.secondary}
+                color={
+                  focused ? theme.darkColors.focused : theme.darkColors.grey
+                }
                 name="add"
-                size={30}
+                size={focused ? 40 : 30}
                 type="material"
               />
             );
@@ -151,12 +156,14 @@ function MainTabScreen() {
         name="Dashboard"
         component={DashboardStackScreen}
         options={{
-          tabBarIcon: () => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Icon
-                color={theme.darkColors.secondary}
+                color={
+                  focused ? theme.darkColors.focused : theme.darkColors.grey
+                }
                 name="dashboard"
-                size={30}
+                size={focused ? 40 : 30}
                 type="material"
               />
             );
@@ -167,12 +174,14 @@ function MainTabScreen() {
         name="Profile"
         component={ProfileStackScreen}
         options={{
-          tabBarIcon: () => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Icon
-                color={theme.darkColors.secondary}
+                color={
+                  focused ? theme.darkColors.focused : theme.darkColors.grey
+                }
                 name="person"
-                size={30}
+                size={focused ? 40 : 30}
                 type="material"
               />
             );
