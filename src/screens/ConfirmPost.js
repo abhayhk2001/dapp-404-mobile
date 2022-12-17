@@ -55,6 +55,8 @@ const ConfirmPost = ({ navigation }) => {
 						setIsLoading(true)
 						getTruthRating(newslang)
 							.then((truthRating) => {
+								truthRating = Math.floor(truthRating*10e5);
+								console.log(truthRating)
 								postToBlockchain(backendContract, backendProvider, account, newslang, tagID, title, description, truthRating);
 							})
 						setIsLoading(false);
