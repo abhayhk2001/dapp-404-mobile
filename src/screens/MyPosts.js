@@ -12,46 +12,45 @@ import { AuthContext } from "../context/AuthContext";
 import Loading from "../components/Loading";
 import MyPost from "../components/MyPost";
 import theme from "../static/theme";
-import posts from "../assets/posts.json";
 
-import getUserTags from "../helper/getUserTags";
-import getPostByTags from "../helper/getPostsByTags";
+import { backendURL } from "../utils/constants";
+import getPostByID from "../helper/getPostsByID";
 
 function Dashboard({ navigation }) {
   //   const [posts, setPosts] = useState([]);
   const { userToken } = useContext(AuthContext);
-  const { backendContract, backendAdContract, backendProvider, account } =
+  const { backendContract, backendAdContract, backendProvider, account, userAccount } =
     useContext(ContractContext);
   const [isLoading, setIsLoading] = useState(false);
   const [refresing, setRefreshing] = useState(false);
-
+  const [posts, setPosts] = useState([]);
   const getPosts = () => {
-    // setIsLoading(true);
-    // setRefresing(true);
-    // getUserTags(userToken)
-    //   .then((tags) => {
-    //     tags = tags.map((tag) => {
-    //       return tag["id"];
-    //     });
-    //     getPostByTags(
-    //       backendContract,
-    //       backendAdContract,
-    //       backendProvider,
-    //       tags,
-    //       10,
-    //       account
-    //     )
-    //       .then((_posts) => {
-    //         console.log(_posts);
-    //         setPosts(_posts);
-    //         setIsLoading(false);
-    //         setRefreshing(false);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err, userToken);
-    //       });
-    //   })
-    //   .catch((err) => console.log(err));
+    setIsLoading(true);
+    setRefreshing(true);
+    fetch(`${backendURL}/post/getuserposts/${userAccount}`).then((data) => {
+      data
+        .json()
+        .then((data) => {
+          // console.log(data);
+          let tags = data
+          tags = tags.map((tag) => {
+            return [tag["postid"], tag["tagid"]];
+          });
+          console.log(tags);
+          tags = tags.filter((tag)=> tag[1]!=="0")
+          getPostByID(backendContract, tags)
+            .then((_posts) => {
+              console.log(_posts);
+              setPosts(_posts);
+              setIsLoading(false);
+              setRefreshing(false);
+            })
+            .catch((err) => {
+              console.log(err, userToken);
+            });
+        })
+        .catch((err) => console.log(err));
+    });
   };
 
   useEffect(() => {

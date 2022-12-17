@@ -9,7 +9,8 @@ const myTheme = {
 		white: '#D1D3DB',
 		success: '#0ACDA4',
 		error: '#FF6058',
-		warning: '#FE9153'
+		warning: '#FE9153',
+		grey:"#868B8E",
 	},
 	mode: 'dark',
 };

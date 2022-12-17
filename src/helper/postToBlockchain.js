@@ -12,8 +12,6 @@ const postToBlockchain = async (
 ) => {
   try {
     console.log(address, newsLang, tags, headline, content, rating);
-    // startLoading();
-    // rating = 15345000;
     let nonce = await Provider.eth.getTransactionCount(address);
     console.log(nonce);
     let post = await Contract.methods

@@ -7,24 +7,25 @@ import { Button } from "@rneui/base";
 import { Avatar } from "@rneui/base";
 import { backendURL } from "../utils/constants";
 import { ContractContext } from "../context/ContractContext";
+import getUserBalance from "../helper/getUserBalance";
 const Profile = ({ navigation }) => {
   const [data, setData] = useState({
     name: "",
   });
-  const { account } = useContext(ContractContext);
+  const { userAccount, backendUserContract } = useContext(ContractContext);
   useEffect(() => {
-    fetch(`${backendURL}/profile/${account}`).then((data) => {
+    fetch(`${backendURL}/profile/${userAccount}`).then((data) => {
       data.json().then(
         (data) => {
-          console.log(data);
-          setInitials(getInitials(data.name));
-          setData(data);
+          getUserBalance(backendUserContract,userAccount).then((balance)=>{
+            data.balance = balance;
+            setInitials(getInitials(data.name));
+            setData(data);
+          })
+          
         } /*must set username & data here*/
       );
     });
-    fetch(`${backendURL}/post/getuserposts/${account}`).then((data) =>
-      data.json().then((data) => console.log())
-    );
   }, []);
 
   function getInitials(name) {
@@ -77,6 +78,7 @@ const Profile = ({ navigation }) => {
           list={[
             { name: "Name: " + data?.name },
             { name: "Email: " + data?.email },
+            { name: "Balance: " + data?.balance}
           ]}
           name={"Personal Details"}
         />

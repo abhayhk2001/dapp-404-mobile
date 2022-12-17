@@ -4,7 +4,7 @@ const rpcCallForTransaction = async (contract, tag, id) => {
     try {
       console.log(`Performing RPC`, id, tag);
       const post = await contract.methods.getPostByID(id, tag).call();
-      console.log(post)
+    //   console.log(post)
       return post;
     } catch (error) {
       console.error('Error in transferTokens >', error);
@@ -16,9 +16,13 @@ const getPostByID = async (Contract, tags) => {
     const tag_list_json = await fetch(`${backendURL}/tags`);
     const tag_list = await tag_list_json.json();
     let posts = []
+    let existing_posts = []
     console.log(tags) // [ [0,1]]
     for(let i=0; i<tags.length; i++){
         let tag = tags[i];
+        if(existing_posts.includes(tag[0]*10+tag[1]))
+            continue;
+        existing_posts.push(tag[0]*10+tag[1])
         let post = await rpcCallForTransaction( Contract, tag[1], tag[0]);
         if(!post)
         continue;
@@ -31,12 +35,12 @@ const getPostByID = async (Contract, tags) => {
             id: parseInt(post.id),
             title: post.headline,
             description: post.content,
-            tags: [{
+            tag: {
                     id: post.tag,
                     name: tag_list[tagInd].name,//should add db query here
-                }],
+                },
             reportIDs: post.reports,
-            rating:post.rating,
+            rating:Math.floor(post.rating / 10e3) / 100,
             interactions:post.interactions,
             truth:post.truth,
         }

@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import Constants from 'expo-constants'
 import theme from '../static/theme'
 import { Icon } from "@rneui/base";
-
 
 const Navigation = (props) => {
 	const { route, back, navigation } = props
@@ -22,7 +21,7 @@ const Navigation = (props) => {
 					</TouchableOpacity>
 				</View>
 			}
-			<Text style={styles.header}>{route.name}</Text>
+			<Text style={styles.header} >{route.name}</Text>
 		</View>
 	)
 }

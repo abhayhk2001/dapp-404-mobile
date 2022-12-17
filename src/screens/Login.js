@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "../static/theme";
 import { Button } from "@rneui/base";
 import { AuthContext } from "../context/AuthContext";
@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
-        Welcome Back
+        Welcome back!
       </Text>
       <Button
         title="Connect to Wallet"
@@ -23,17 +23,16 @@ const Login = ({ navigation }) => {
           onPress();
         }}
       />
-      <View style={{ flexDirection: "row", marginTop: 70 }}>
-        <Text style={{ color: "white", marginRight: 20, fontSize: 30 }}>
-          New Here ...
-        </Text>
-        <Button
-          title="Sign Up"
-          buttonStyle={{}}
+      <View style={{ flexDirection: "column", marginTop: 70 }}>
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate("Sign Up");
           }}
-        />
+        >
+          <Text style={{ color: "white", textAlign: "center", fontSize: 20 }}>
+            Don't have an account? <Text style={{color:theme.darkColors.secondary}}>Sign up</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
