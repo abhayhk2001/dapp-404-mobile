@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Card, Icon } from "@rneui/base";
+import { Card, Icon, Button } from "@rneui/base";
 
 // import { ReportPostContext } from "../context/ReportPostContext";
 import { ContractContext } from "../context/ContractContext";
@@ -169,6 +169,8 @@ const Post = ({
               {reportIDs.length}
             </Text>
           </TouchableOpacity>
+        </View>
+        <View>
           <Button
             type="solid"
             color={theme.darkColors.error}

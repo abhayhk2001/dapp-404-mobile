@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, TextInput, Linking } from "react-native";
 import theme from "../static/theme";
 import { ListItem } from "@rneui/themed";
 import { Button } from "@rneui/base";
 
 import { Avatar } from "@rneui/base";
-import { backendURL } from "../utils/constants";
+import { backendURL, userContractAddress } from "../utils/constants";
 import { ContractContext } from "../context/ContractContext";
 import getUserBalance from "../helper/getUserBalance";
 const Profile = ({ navigation }) => {
@@ -17,12 +17,11 @@ const Profile = ({ navigation }) => {
     fetch(`${backendURL}/profile/${userAccount}`).then((data) => {
       data.json().then(
         (data) => {
-          getUserBalance(backendUserContract,userAccount).then((balance)=>{
+          getUserBalance(backendUserContract, userAccount).then((balance) => {
             data.balance = balance;
             setInitials(getInitials(data.name));
             setData(data);
-          })
-          
+          });
         } /*must set username & data here*/
       );
     });
@@ -44,7 +43,7 @@ const Profile = ({ navigation }) => {
   }
   const [initials, setInitials] = useState("");
   const [bgColor, setBgColor] = useState(generateRandomColor());
-
+  const [amount, setAmount] = useState(0);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}></View>
@@ -78,7 +77,7 @@ const Profile = ({ navigation }) => {
           list={[
             { name: "Name: " + data?.name },
             { name: "Email: " + data?.email },
-            { name: "Balance: " + data?.balance}
+            { name: "Balance: " + parseInt(data?.balance) / 1e18 },
           ]}
           name={"Personal Details"}
         />
@@ -103,6 +102,39 @@ const Profile = ({ navigation }) => {
         >
           My Posts
         </Button>
+        <View style={{display:"flex", alignItems:"center", flexDirection:"row"}}>
+          <View>
+          <TextInput
+          style={styles.textinput}
+          placeholder="Amount"
+          placeholderTextColor={theme.darkColors.grey}
+          onChangeText={(text) => {
+            setAmount(text);
+          }}
+          />
+          </View>
+        <Button
+          type="solid"
+          color={theme.darkColors.secondary}
+          onPress={async () => {
+            try{
+            const url = `https://metamask.app.link/send/pay-${userContractAddress}@80001?value=${parseInt(parseFloat(amount)*1e18)}`
+            console.log(url);
+            const supported = await Linking.canOpenURL(url);
+            if (supported) {
+              await Linking.openURL(url);
+            } else {
+              Alert.alert(`Don't know how to open this URL: ${url}`);
+            }
+          } catch(err) {
+            console.log(err)
+          }
+          }}
+          containerStyle={{ marginTop: 10, marginBottom:30, width: 150 }}
+        >
+          Fund
+        </Button>
+        </View>
       </ScrollView>
     </ScrollView>
   );
@@ -140,7 +172,7 @@ function Options({ list, name }) {
       {list.map((l, i) => (
         <ListItem key={i} containerStyle={{ width: 325 }}>
           <ListItem.Title
-            style={{ color: theme.darkColors.white, fontSize: 20 }}
+            style={{ color: theme.darkColors.white, fontSize: 15 }}
           >
             {l.name}
           </ListItem.Title>
@@ -161,9 +193,19 @@ const styles = StyleSheet.create({
     height: 200,
   },
   name: {
-    fontSize: 22,
+    fontSize: 15,
     color: "#ffffff",
     fontWeight: "600",
+  },
+  textinput: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 1,
+    marginTop:10,
+    marginVertical: 3,
+    fontSize: 20,
+    color: theme.darkColors.grey,
   },
   body: {
     marginTop: 70,

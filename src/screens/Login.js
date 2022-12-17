@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import theme from "../static/theme";
 import { Button } from "@rneui/base";
 import { AuthContext } from "../context/AuthContext";
@@ -8,8 +14,8 @@ const Login = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const { login: _login } = useContext(ContractContext);
   const onPress = () => {
-    _login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
-    login("0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase());
+    _login(publicAddress.toLowerCase());
+    login(publicAddress.toLowerCase());
   };
 
   const [publicAddress, setPublicAddress] = useState("");
@@ -18,18 +24,16 @@ const Login = ({ navigation }) => {
       <Text style={{ color: "white", marginBottom: 20, fontSize: 40 }}>
         Welcome back!
       </Text>
-      <View>
-        <TextInput
-          secureTextEntry={true}
-          style={styles.textinput}
-          placeholder="Wallet Address"
-          placeholderTextColor={theme.darkColors.grey}
-          value={publicAddress}
-          onChangeText={(text) => {
-            setPublicAddress(text);
-          }}
-        />
-      </View>
+      <TextInput
+        secureTextEntry={true}
+        style={styles.textinput}
+        placeholder="Wallet Address"
+        placeholderTextColor={theme.darkColors.grey}
+        value={publicAddress}
+        onChangeText={(text) => {
+          setPublicAddress(text);
+        }}
+      />
       <Button
         title="Connect to Wallet"
         buttonStyle={styles.button}
@@ -71,7 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 5,
-    borderWidth: 1,
+    borderBottomWidth: 1,
+    marginBottom:10,
     borderColor: theme.darkColors.grey,
     padding: 10,
     marginVertical: 3,

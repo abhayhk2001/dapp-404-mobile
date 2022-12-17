@@ -3,7 +3,7 @@ import advertise from './Advertise.json'
 import user from './UserData.json'
 export const contractAddress = "0x3A44FD4549e15d8B017E2BcC699087f77E6653f3"
 export const adContractAddress = "0xAB78b83c1ae82Bb7F7afF6E5AF9B810682763b2f"
-export const userContractAddress = "0xbe17634DA7dDfA29B8382A89b328c1080bfA194b"
+export const userContractAddress = "0xCcB688171CAD6663760222835AF7d11A1B52D6c6"
 export const abi =  article.abi;
 export const adAbi = advertise.abi;
 export const userAbi = user.abi;
