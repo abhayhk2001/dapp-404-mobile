@@ -10,6 +10,6 @@ export const userAbi = user.abi;
 export const rpc_url = "https://polygon-mumbai.g.alchemy.com/v2/kMNv2zP52eGL5HBkC1pwMzpaJ8NVaRGn";
 export const private_key = "4c8a52ed8e2f98296928613c4b66964f6e65ccd85466468e1d405bd52b296e37";
 export const ownerWallet = "0xbe26757C4e5F124200830E98d5f13D1f95FceF5e".toLowerCase();
-export const backendURL = //"https://bce6-2401-4900-4e65-1db4-7439-8746-7e7c-cae.in.ngrok.io" 
-                        // "http://localhost:4000"   
-                        "http://34.28.83.35:4000"
+export const backendURL =  "https://43a9-2401-4900-33b3-441f-b9b9-5682-8333-a29c.in.ngrok.io" 
+                        //"https://bce6-2401-4900-4e65-1db4-7439-8746-7e7c-cae.in.ngrok.io"   
+                        //"http://34.28.83.35:4000"

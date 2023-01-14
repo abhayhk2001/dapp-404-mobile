@@ -10,7 +10,7 @@ const getTruthRating = async (newsLang) => {
     console.log(response);
     return parseFloat(response.COmparision)*100;
   } catch (err) {
-    return 65.32;
+    return 15.32;
   }
 };
 
