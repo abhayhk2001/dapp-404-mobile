@@ -102,7 +102,7 @@ export const ContractProvider = ({ children }) => {
     if (user) return user;
   };
 
-  const signup = async ({ name, password, publicAddress, email }) => {
+  const signup = async ({ name, password, publicAddress, email }, callback) => {
     try {
       publicAddress = publicAddress.toLowerCase();
       const _contract = await createEthereumContract();
@@ -126,8 +126,9 @@ export const ContractProvider = ({ children }) => {
         setUserAccount(publicAddress);
         contractSignUp(publicAddress);
         _login(publicAddress);
+        callback();
       }));
-      // login(publicAddress);
+      login(publicAddress);
     } catch (err) {
       console.log(err);
     }

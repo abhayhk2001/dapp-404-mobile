@@ -9,6 +9,7 @@ const getUserTags = async (user_public_address) => {
     }
     catch (err) {
         console.log(err);
+        return [1,2,5]
     }
 }
 

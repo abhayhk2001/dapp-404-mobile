@@ -91,8 +91,10 @@ const Signup = ({ navigation }) => {
               publicAddress,
               email,
               password,
-            });
+            }, ()=> {
+              
             navigation.navigate("Login")
+            });
           }}
         >
           <Text style={{ fontSize: 25, color: "white", borderRadius: 10 }}>

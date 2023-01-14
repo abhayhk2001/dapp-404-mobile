@@ -5,11 +5,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ThemeProvider } from "@rneui/themed";
 import { Icon } from "@rneui/base";
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 import { PostContext } from "./src/context/PostContext";
 import { ContractProvider } from "./src/context/ContractContext";
 import { AuthContext } from "./src/context/AuthContext";
 import { ReportPostContext } from "./src/context/ReportPostContext";
+
+
 
 import theme from "./src/static/theme";
 import NavigationBar from "./src/components/NavigationBar";
@@ -57,7 +60,6 @@ const AuthStackScreen = () => (
   </AuthStack.Navigator>
 );
 
-LogBox.ignoreAllLogs();//Ignore all log notifications
 
 function NewPostStackScreen() {
   const [postData, setPostData] = useState({});
